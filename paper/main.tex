@@ -1,0 +1,139 @@
+\documentclass[11pt]{article}
+
+\usepackage[a4paper,margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{mathtools}
+\usepackage{hyperref}
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{remark}[theorem]{Remark}
+
+\title{Dyadic Geometry of the Zeta Function}
+\author{Thiago F. M. Massensini Silva}
+\date{Draft for formal review}
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+We present a dyadic C2 operator framework for studying the off-critical nonvanishing problem associated with the Riemann zeta function.  The construction separates the proof architecture into a local near-critical-zero regime, a middle-region dominance regime, an edge regime, and a transfer theorem.  The formal endpoint is the official \texttt{RiemannHypothesis} proposition in mathlib.  The accompanying Lean development verifies the route from the stated C2 certificates and the C2/zeta identity to this endpoint.
+\end{abstract}
+
+\section{Introduction}
+
+The purpose of this paper is to present a dyadic operator route to the Riemann zeta nonvanishing problem in the off-critical strip.
+
+The proof architecture is organized into five layers:
+\begin{enumerate}
+  \item a C2 operator identity with the Riemann zeta function;
+  \item a regional cover of the off-critical strip;
+  \item local nonvanishing near critical-line zeros;
+  \item middle-region non-cancellation via a dominance criterion;
+  \item transfer to the official \texttt{RiemannHypothesis} proposition in mathlib.
+\end{enumerate}
+
+\section{Preliminaries}
+
+Let $s = \sigma + it \in \mathbb{C}$.  The critical line is $\sigma = 1/2$.  The off-critical strip is the part of the critical strip with $0 < \sigma < 1$ and $\sigma \ne 1/2$.
+
+\begin{definition}[Off-critical nonvanishing]
+For a complex function $F$, off-critical nonvanishing means that $F(s) \ne 0$ for every $s$ in the off-critical strip.
+\end{definition}
+
+\section{The C2 operator identity}
+
+Let $F$ denote the review-facing C2 operator and let $c_0(s)$ denote the scalar factor appearing in the C2/zeta identity.
+
+\begin{theorem}[Fundamental C2/zeta identity]
+On the required right half-plane domain, the C2 operator satisfies
+\[
+  F(s) = c_0(s)\zeta(s).
+\]
+\end{theorem}
+
+\begin{theorem}[Transfer theorem]
+Assume that $F(s) = c_0(s)\zeta(s)$ on the off-critical strip and that $c_0(s) \ne 0$ there.  If $F$ is nonvanishing on the off-critical strip, then $\zeta$ is nonvanishing on the off-critical strip.
+\end{theorem}
+
+\section{Regional cover}
+
+The off-critical strip is decomposed into three regimes:
+\begin{enumerate}
+  \item a near-critical-zero regime;
+  \item a middle-region regime;
+  \item an edge regime.
+\end{enumerate}
+
+\begin{theorem}[Off-critical regional cover]
+If the three regional certificates cover the off-critical strip and each regional certificate proves nonvanishing of the C2 operator on its region, then the C2 operator is nonvanishing on the whole off-critical strip.
+\end{theorem}
+
+\section{Near-critical-zero regime}
+
+The near-critical-zero regime is handled by a local punctured nonvanishing certificate.
+
+\begin{theorem}[Near-critical-zero certificate]
+Under the continuation hypotheses for the genuine C2 operator, the operator is locally nonvanishing in the punctured neighborhoods required by the near-critical-zero region.
+\end{theorem}
+
+\section{Middle-region non-cancellation}
+
+The middle-region argument is expressed as a dominance criterion.
+
+\begin{definition}[Dominant four-level block]
+The dominant four-level block is the main term extracted from the dyadic vertical decomposition.
+\end{definition}
+
+\begin{definition}[Residual budget]
+The residual budget is the sum of the remaining tail, horizontal, tilt, and cutoff contributions after extraction of the main block.
+\end{definition}
+
+\begin{theorem}[Resolvent non-cancellation criterion]
+If the dominant main term is strictly larger than the residual budget throughout the middle region, then the C2 operator is nonvanishing throughout the middle region.
+\end{theorem}
+
+\section{Edge-region regime}
+
+The edge-region certificate handles the remaining part of the off-critical strip not covered by the near-critical-zero and middle-region regimes.
+
+\section{Terminal certificate}
+
+\begin{theorem}[Terminal C2 certificate]
+A terminal certificate consisting of continuation data, near-critical-zero data, middle-region data, edge-region data, and a cover proof implies off-critical nonvanishing of the C2 operator.
+\end{theorem}
+
+\begin{corollary}[Formal endpoint]
+The terminal C2 certificate implies the official \texttt{RiemannHypothesis} proposition in mathlib.
+\end{corollary}
+
+\section{Lean formalization}
+
+The public Lean facade is located at
+\[
+  \texttt{LeanC2/PeerReview.lean}.
+\]
+
+The intended build command is
+\begin{verbatim}
+lake build LeanC2.Analytic.GenuineBulkConcrete LeanC2.PeerReview LeanC2
+\end{verbatim}
+
+The paper-facing theorem map is maintained in \texttt{docs/THEOREM\_MAP\_REVIEW.md}.
+
+\section{Reproducibility}
+
+The reproducibility guide is maintained in \texttt{docs/REPRODUCIBILITY.md}.
+
+\section{Discussion}
+
+The central separation in the construction is between the C2-native nonvanishing mechanism and the final transfer to the classical zeta statement.  The formal endpoint is not a local replacement for RH, but the official mathlib \texttt{RiemannHypothesis} proposition.
+
+\bibliographystyle{alpha}
+\bibliography{references}
+
+\end{document}
