@@ -1,0 +1,72 @@
+name: Lean C2 CI
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'LeanC2/**'
+      - 'lakefile.lean'
+      - 'lakefile.toml'
+      - 'lake-manifest.json'
+      - 'lean-toolchain'
+      - '.github/workflows/lean.yml'
+  pull_request:
+    paths:
+      - 'LeanC2/**'
+      - 'lakefile.lean'
+      - 'lakefile.toml'
+      - 'lake-manifest.json'
+      - 'lean-toolchain'
+      - '.github/workflows/lean.yml'
+  workflow_dispatch:
+
+jobs:
+  lean-build:
+    name: lake build LeanC2 peer-review route
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Detect Lean project files
+        id: lean_project
+        run: |
+          if [ -f lean-toolchain ] && { [ -f lakefile.lean ] || [ -f lakefile.toml ]; }; then
+            echo "present=true" >> "$GITHUB_OUTPUT"
+            echo "Lean project files found. CI will run the formal build."
+          else
+            echo "present=false" >> "$GITHUB_OUTPUT"
+            echo "::warning::Lean project files not found at repository root. Skipping Lean build until lean-toolchain and a Lake file are added."
+          fi
+
+      - name: Install elan / Lean toolchain
+        if: steps.lean_project.outputs.present == 'true'
+        run: |
+          set -euxo pipefail
+          curl https://raw.githubusercontent.com/leanprover/elan/master/elan-init.sh -sSf | sh -s -- -y --default-toolchain "$(cat lean-toolchain)"
+          echo "$HOME/.elan/bin" >> "$GITHUB_PATH"
+
+      - name: Show Lean and Lake versions
+        if: steps.lean_project.outputs.present == 'true'
+        run: |
+          lean --version
+          lake --version
+
+      - name: Fetch mathlib cache when available
+        if: steps.lean_project.outputs.present == 'true'
+        run: |
+          lake exe cache get || true
+
+      - name: Build formalization endpoint and peer-review facade
+        if: steps.lean_project.outputs.present == 'true'
+        run: |
+          lake build LeanC2.Analytic.GenuineBulkConcrete LeanC2.PeerReview LeanC2
+
+      - name: Report skipped Lean build
+        if: steps.lean_project.outputs.present != 'true'
+        run: |
+          echo "Lean build skipped: repository root does not yet contain lean-toolchain plus lakefile.lean/lakefile.toml."
+          echo "Add the Lean project files to enable the formal build."
