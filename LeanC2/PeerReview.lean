@@ -41,6 +41,80 @@ noncomputable abbrev CalibratedContinuedBulkModel
     (coreCutoff : ℕ → ℕ) (K M : ℕ) : ℂ → ℂ :=
   C2.c2OddTailContinuedBalancingSeedBulkModel coreCutoff K M
 
+abbrev DominantFourLevelBlockInequality :=
+  C2.C2ExpandedQuartetDominance
+
+abbrev ResidualBudgetDominance :=
+  C2.C2CanonicalClosedScaledResidualBudgetLocalData
+
+abbrev CalibratedResidualSeed :=
+  C2.C2BalancingSeedFactorScaledBound
+
+theorem ResolventNonCancellationCriterion_of_budgetBounds
+    {tiltConstant tiltScale
+      horizontalConstant horizontalScale horizontalRatio
+      cutoffConstant cutoffScale : ℂ → ℝ}
+    {dominantBlockTailBudget tiltBudget horizontalBudget cutoffBudget : ℝ}
+    {s : ℂ}
+    (hblockTail : C2.c2QuartetVerticalTailUpper s ≤ dominantBlockTailBudget)
+    (htilt : C2.c2TiltAnalyticRegularizedUpper tiltConstant tiltScale s ≤ tiltBudget)
+    (hhorizontal : C2.c2HorizontalRegularizedUpper
+      horizontalConstant horizontalScale horizontalRatio s ≤ horizontalBudget)
+    (hcutoff : C2.c2CutoffUpperFromScale cutoffConstant cutoffScale s ≤ cutoffBudget)
+    (hdom : dominantBlockTailBudget + tiltBudget + horizontalBudget + cutoffBudget <
+      C2.c2ExpandedQuartetK2Margin s) :
+    DominantFourLevelBlockInequality
+      tiltConstant tiltScale
+      horizontalConstant horizontalScale horizontalRatio
+      cutoffConstant cutoffScale s := by
+  exact C2.c2ResolventNonCancellationFiniteCriterion_of_budgetBounds
+    hblockTail htilt hhorizontal hcutoff hdom
+
+theorem AdjustedResolventNonCancellationCriterion_of_residualBudgetBounds
+    {tiltConstant tiltScale
+      horizontalConstant horizontalScale horizontalRatio
+      cutoffConstant cutoffScale : ℂ → ℝ}
+    {tiltBudget horizontalBudget cutoffBudget : ℝ}
+    {s : ℂ}
+    (htilt : C2.c2TiltAnalyticRegularizedUpper tiltConstant tiltScale s ≤ tiltBudget)
+    (hhorizontal : C2.c2HorizontalRegularizedUpper
+      horizontalConstant horizontalScale horizontalRatio s ≤ horizontalBudget)
+    (hcutoff : C2.c2CutoffUpperFromScale cutoffConstant cutoffScale s ≤ cutoffBudget)
+    (hdom : tiltBudget + horizontalBudget + cutoffBudget <
+      C2.c2ExpandedQuartetResidualMargin s) :
+    DominantFourLevelBlockInequality
+      tiltConstant tiltScale
+      horizontalConstant horizontalScale horizontalRatio
+      cutoffConstant cutoffScale s := by
+  exact C2.c2ResolventNonCancellationAdjustedCriterion_of_residualBudgetBounds
+    htilt hhorizontal hcutoff hdom
+
+theorem FiniteResolventNonCancellationCriterion_of_splitBounds
+    {FInfinity FX dominantBlock residual : ℂ → ℂ}
+    {dominantBlockLower residualBudget cutoffProxy : ℂ → ℝ}
+    {s : ℂ}
+    (hsplit : FX s = dominantBlock s + residual s)
+    (hblock : dominantBlockLower s ≤ ‖dominantBlock s‖)
+    (hresidual : ‖residual s‖ ≤ residualBudget s)
+    (hproxy : ‖FInfinity s - FX s‖ ≤ cutoffProxy s)
+    (hdom : dominantBlockLower s - residualBudget s - cutoffProxy s > 0) :
+    FInfinity s ≠ 0 := by
+  exact C2.c2ResolventNonCancellationFiniteCriterion_of_splitBounds
+    hsplit hblock hresidual hproxy hdom
+
+theorem AdjustedResolventNonCancellationCriterion_of_adjustedBlockBounds
+    {FInfinity FX dominantBlock residual : ℂ → ℂ}
+    {dominantBlockMain adjustmentDefect residualBudget cutoffProxy : ℂ → ℝ}
+    {s : ℂ}
+    (hsplit : FX s = dominantBlock s + residual s)
+    (hblock : dominantBlockMain s - adjustmentDefect s ≤ ‖dominantBlock s‖)
+    (hresidual : ‖residual s‖ ≤ residualBudget s)
+    (hproxy : ‖FInfinity s - FX s‖ ≤ cutoffProxy s)
+    (hdom : dominantBlockMain s - adjustmentDefect s - residualBudget s - cutoffProxy s > 0) :
+    FInfinity s ≠ 0 := by
+  exact C2.c2ResolventNonCancellationAdjustedCriterion_of_adjustedQuartetBounds
+    hsplit hblock hresidual hproxy hdom
+
 theorem RiemannHypothesis_of_offCriticalNonvanishing
     (hζ : OffCriticalNonvanishing riemannZeta) :
     RiemannHypothesis := by

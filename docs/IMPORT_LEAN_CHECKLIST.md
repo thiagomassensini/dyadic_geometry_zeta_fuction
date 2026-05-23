@@ -2,6 +2,8 @@
 
 Use this checklist when importing the Lean formalization into this repository.
 
+Status: completed for the public `LeanC2/` tree on 2026-05-23. The root project files are present and the documented build command succeeds locally.
+
 ## 1. Root project files
 
 Add these files at repository root:

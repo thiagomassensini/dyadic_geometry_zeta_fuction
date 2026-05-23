@@ -156,6 +156,13 @@ Provides local punctured nonvanishing near zeros on the critical line.
 - `C2.PeerReview.MiddleRegionDominanceCertificate`
 - `C2.PeerReview.MiddleRegionBoundsCertificate`
 - `C2.PeerReview.CalibratedContinuedBulkModel`
+- `C2.PeerReview.DominantFourLevelBlockInequality`
+- `C2.PeerReview.ResidualBudgetDominance`
+- `C2.PeerReview.CalibratedResidualSeed`
+- `C2.PeerReview.ResolventNonCancellationCriterion_of_budgetBounds`
+- `C2.PeerReview.AdjustedResolventNonCancellationCriterion_of_residualBudgetBounds`
+- `C2.PeerReview.FiniteResolventNonCancellationCriterion_of_splitBounds`
+- `C2.PeerReview.AdjustedResolventNonCancellationCriterion_of_adjustedBlockBounds`
 
 ### Public exposition names
 
@@ -164,17 +171,19 @@ Provides local punctured nonvanishing near zeros on the critical line.
 - `ResidualBudgetDominance`
 - `CalibratedResidualSeed`
 
-### Internal names to avoid in exposition
+### Deprecated discovery labels
 
-- `anti-milagre`
-- `quarteto`
-- `seed natural`
+The public tree should expose this layer as resolvent non-cancellation, dominant four-level blocks, and calibrated residual budgets. Historical mnemonic labels are not part of the review-facing API.
 
 ### Representative internal endpoint declarations
 
 - `mathlibRiemannHypothesis_of_expandedScalarMiddleRegion`
 - `mathlibRiemannHypothesis_of_continuationAndExpandedScalarMiddleRegionWithBounds`
 - `mathlibRiemannHypothesis_of_oddTailContinuedBalancingSeedBulkModel_quartetConcreteCover`
+- `c2ResolventNonCancellationFiniteCriterion_of_budgetBounds`
+- `c2ResolventNonCancellationAdjustedCriterion_of_residualBudgetBounds`
+- `c2ResolventNonCancellationFiniteCriterion_of_splitBounds`
+- `c2ResolventNonCancellationAdjustedCriterion_of_adjustedQuartetBounds`
 - `mathlibRiemannHypothesis_of_continuationAndExplicitScalarExactZetaMiddleRegion`
 - `mathlibRiemannHypothesis_of_continuationAndCanonicalClosedScaledMiddlePointwiseBounds`
 - `mathlibRiemannHypothesis_of_continuationAndCanonicalClosedScaledMiddleResidualPointwiseBounds`

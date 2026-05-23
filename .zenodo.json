@@ -1,0 +1,23 @@
+{
+  "title": "Dyadic Geometry of the Zeta Function — Formal Lean Verification",
+  "description": "Peer-review workspace formalising the C2/dyadic-carry geometry route connected to the Riemann zeta function using Lean 4 and Mathlib. Contains the formal Lean source tree, review-facing documentation, and the CI pipeline that validates the build on every commit.",
+  "creators": [
+    {
+      "name": "Motta, Thiago F.",
+      "affiliation": "",
+      "orcid": ""
+    }
+  ],
+  "license": "Apache-2.0",
+  "upload_type": "software",
+  "keywords": [
+    "Lean 4",
+    "Mathlib",
+    "Riemann Hypothesis",
+    "zeta function",
+    "dyadic geometry",
+    "formal proof"
+  ],
+  "access_right": "open",
+  "language": "eng"
+}

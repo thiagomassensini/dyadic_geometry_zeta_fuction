@@ -14,8 +14,8 @@ Avoid informal labels in review-facing statements, section titles, theorem names
 
 | Internal / mnemonic role | Review-facing name | Recommended phrase |
 | --- | --- | --- |
-| anti-milagre | non-cancellation mechanism | resolvent non-cancellation mechanism |
-| seed natural / balancing seed | calibrated residual seed | calibrated residual seed |
+| former middle-region discovery mnemonic | non-cancellation mechanism | resolvent non-cancellation mechanism |
+| former seed mnemonic / balancing seed | calibrated residual seed | calibrated residual seed |
 | genuine | genuine C2 operator | complete C2 operator / genuine C2 operator |
 | near-axis | local zero-neighborhood regime | near-critical-zero regime |
 | bulk | middle-region regime | middle-region nonvanishing regime |
@@ -25,7 +25,7 @@ Avoid informal labels in review-facing statements, section titles, theorem names
 | colagem | gluing / assembly | regional assembly |
 | barreira de ramo | branch-norm barrier | branch norm barrier |
 | tilt | critical-line tilt obstruction | tilt obstruction |
-| quarteto | four-level dominant block | dominant four-level block |
+| former four-block mnemonic | four-level dominant block | dominant four-level block |
 | cauda | tail estimate | residual/tail estimate |
 
 ## Suggested public theorem names
@@ -71,8 +71,4 @@ Use:
 
 > We prove an off-critical nonvanishing theorem for a C2 operator and transfer it to the official `RiemannHypothesis` statement in mathlib through a formal identity with the Riemann zeta function.
 
-Avoid:
-
-> We prove RH by anti-miracle.
-
-The second sentence may be historically funny. The first one is what survives peer review.
+Avoid informal discovery slogans in the paper, theorem statements, section titles, abstracts, captions, public Lean declarations, and CI reports.

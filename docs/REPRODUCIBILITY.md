@@ -4,18 +4,16 @@ This guide records the commands and files needed to audit the formal side of the
 
 ## Required files at repository root
 
-The Lean CI expects:
+The Lean CI expects and this repository provides:
 
 ```text
 lean-toolchain
-lakefile.lean or lakefile.toml
+lakefile.lean
 lake-manifest.json
 LeanC2/
 ```
 
-If these files are not present at the root, the CI reports a warning and skips the Lean build. This keeps scaffolding-only commits green while making the missing formalization tree explicit.
-
-Once the Lean project files are added, the same workflow automatically runs the formal build.
+The workflow runs the formal build from these root project files.
 
 ## Main Lean verification command
 
@@ -24,6 +22,8 @@ lake build LeanC2.Analytic.GenuineBulkConcrete LeanC2.PeerReview LeanC2
 ```
 
 This is the command used by the GitHub Actions workflow once the Lean project is present.
+
+The repository is pinned to Lean/mathlib `v4.29.1` through `lean-toolchain`, `lakefile.lean`, and `lake-manifest.json`.
 
 ## Expected formal endpoint
 

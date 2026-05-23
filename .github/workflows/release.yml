@@ -1,0 +1,36 @@
+name: Release & Zenodo
+
+# Dispara apenas quando uma tag semântica é criada (ex: v1.0.0)
+# O Lean CI (lean.yml) precisa estar verde antes do push da tag.
+on:
+  push:
+    tags:
+      - 'v*'
+
+permissions:
+  contents: write   # necessário para criar a GitHub Release
+
+jobs:
+  release:
+    name: Create GitHub Release (→ Zenodo)
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout full history
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      # Extrai a versão da tag (ex: v1.0.0 → 1.0.0) e usa como notas da release
+      - name: Extract tag name
+        id: tag
+        run: echo "version=${GITHUB_REF_NAME}" >> "$GITHUB_OUTPUT"
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          name: "Release ${{ steps.tag.outputs.version }}"
+          tag_name: ${{ steps.tag.outputs.version }}
+          generate_release_notes: true
+          draft: false
+          prerelease: false

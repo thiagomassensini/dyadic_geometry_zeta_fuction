@@ -1,8 +1,8 @@
 # Dyadic Geometry of the Zeta Function
 
-This repository is the clean peer-review workspace for the C2 / dyadic-carry geometry route connected to the Riemann zeta function.
+This repository is the peer-review workspace for the C2 / dyadic-carry geometry route connected to the Riemann zeta function.
 
-The goal is to keep the public presentation separate from historical scratch work.
+The goal is to keep the public presentation separated from historical scratch work and to expose a stable Lean entry point for external audit.
 
 ## Review-facing route
 
@@ -22,7 +22,7 @@ C2 local certificates
 ```text
 docs/                    Review-facing documentation
 paper/                   Paper draft and outline
-LeanC2/                  Lean source tree, once imported
+LeanC2/                  Lean source tree and peer-review facade
 .github/workflows/       CI workflows
 ```
 
@@ -34,7 +34,7 @@ Once the Lean project files are present at the repository root, the intended ver
 lake build LeanC2.Analytic.GenuineBulkConcrete LeanC2.PeerReview LeanC2
 ```
 
-Until the Lean project is imported, CI reports a warning and skips the build.
+The repository includes `lean-toolchain`, `lakefile.lean`, and `lake-manifest.json`; CI runs the same build command.
 
 ## Public naming policy
 
@@ -42,12 +42,12 @@ Internal discovery names are not used as theorem names in the review-facing pape
 
 For example:
 
-- `anti-milagre` becomes `resolvent non-cancellation mechanism`.
-- `quarteto` becomes `dominant four-level block`.
-- `seed` becomes `calibrated residual seed`.
+- the middle-region cancellation argument is exposed as a `resolvent non-cancellation mechanism`;
+- the finite dyadic block is exposed as a `dominant four-level block`;
+- the correction seed is exposed as a `calibrated residual seed`.
 
 See `docs/FORMAL_NAMING.md`.
 
 ## Status
 
-Fresh repository for the peer-review version.  Historical material should only be imported after being cleaned, renamed, and mapped to the public theorem route.
+The formalization has been imported into the public `LeanC2/` tree. Historical scratch material is kept outside the public route unless it is cleaned, renamed, and mapped through `docs/THEOREM_MAP_REVIEW.md`.

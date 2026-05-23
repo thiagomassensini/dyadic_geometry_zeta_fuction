@@ -10,10 +10,10 @@ Current contents:
 - public theorem naming conventions;
 - theorem map for reviewers;
 - reproducibility guide;
+- imported Lean source tree under `LeanC2/`;
 - Lean facade module at `LeanC2/PeerReview.lean`;
+- Lake project files at the repository root;
 - GitHub Actions workflow prepared for the Lean build.
-
-The full Lean source tree has not yet been imported into this repository.
 
 ## Formal endpoint
 
@@ -37,21 +37,34 @@ C2.PeerReview.RiemannHypothesis_of_terminalCertificate
 
 ## CI behavior
 
-The CI checks whether the repository root contains:
+The repository root contains:
 
 ```text
 lean-toolchain
-lakefile.lean or lakefile.toml
+lakefile.lean
+lake-manifest.json
 ```
 
-If these files are absent, the workflow reports a warning and skips the Lean build.
-
-After the Lean project is imported, the workflow runs:
+The workflow runs:
 
 ```bash
 lake build LeanC2.Analytic.GenuineBulkConcrete LeanC2.PeerReview LeanC2
 ```
 
+## Local verification
+
+Verified on 2026-05-23 with Lean/mathlib `v4.29.1`:
+
+```bash
+lake build LeanC2.Analytic.GenuineBulkConcrete LeanC2.PeerReview LeanC2
+```
+
+Result:
+
+```text
+Build completed successfully (8290 jobs).
+```
+
 ## Immediate next step
 
-Import the complete Lean source tree and root Lake files into this repository, then run the CI build.
+Keep the public facade, theorem map, paper draft, and CI build command synchronized as the formal route changes.

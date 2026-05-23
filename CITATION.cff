@@ -1,0 +1,34 @@
+cff-version: 1.2.0
+message: "If you use or build upon this work, please cite it using the metadata below."
+title: "Dyadic Geometry of the Zeta Function — Formal Lean Verification"
+type: software
+version: "1.0.0"
+date-released: "2026-05-23"
+authors:
+  - family-names: "Motta"
+    given-names: "Thiago F."
+    orcid: ""          # preencha com https://orcid.org/XXXX-XXXX-XXXX-XXXX se tiver
+license: "Apache-2.0"
+repository-code: "https://github.com/thlinux/dyadic_geometry_zeta_fuction"
+url: "https://github.com/thlinux/dyadic_geometry_zeta_fuction"
+doi: ""               # preencha após publicar no Zenodo (ex: 10.5281/zenodo.XXXXXXX)
+abstract: >
+  Peer-review workspace formalising the C2/dyadic-carry geometry route
+  connected to the Riemann zeta function using Lean 4 and Mathlib.
+  Contains the formal Lean source tree, review-facing documentation,
+  and the CI pipeline that validates the build on every commit.
+keywords:
+  - "Lean 4"
+  - "Mathlib"
+  - "Riemann Hypothesis"
+  - "zeta function"
+  - "dyadic geometry"
+  - "formal proof"
+preferred-citation:
+  type: software
+  title: "Dyadic Geometry of the Zeta Function — Formal Lean Verification"
+  authors:
+    - family-names: "Motta"
+      given-names: "Thiago F."
+  year: 2026
+  doi: ""             # preencha após publicar no Zenodo

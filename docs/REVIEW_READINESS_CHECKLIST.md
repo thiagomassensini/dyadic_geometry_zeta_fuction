@@ -4,26 +4,26 @@ Use this checklist before sending the repository or paper to external reviewers.
 
 ## Repository structure
 
-- [ ] Root contains `lean-toolchain`.
-- [ ] Root contains `lakefile.lean` or `lakefile.toml`.
-- [ ] Root contains `lake-manifest.json`.
-- [ ] Root contains the complete `LeanC2/` source tree.
-- [ ] `LeanC2/PeerReview.lean` imports the current terminal route.
-- [ ] `.github/workflows/lean.yml` runs the intended build command.
+- [x] Root contains `lean-toolchain`.
+- [x] Root contains `lakefile.lean` or `lakefile.toml`.
+- [x] Root contains `lake-manifest.json`.
+- [x] Root contains the complete `LeanC2/` source tree.
+- [x] `LeanC2/PeerReview.lean` imports the current terminal route.
+- [x] `.github/workflows/lean.yml` runs the intended build command.
 
 ## Formal build
 
-- [ ] `lake exe cache get || true` completes or safely falls back.
-- [ ] `lake build LeanC2.Analytic.GenuineBulkConcrete LeanC2.PeerReview LeanC2` succeeds locally.
+- [x] `lake exe cache get || true` completes or safely falls back.
+- [x] `lake build LeanC2.Analytic.GenuineBulkConcrete LeanC2.PeerReview LeanC2` succeeds locally.
 - [ ] GitHub Actions succeeds on `main`.
-- [ ] The public facade compiles.
+- [x] The public facade compiles.
 
 ## Theorem map
 
-- [ ] `docs/THEOREM_MAP_REVIEW.md` lists the paper-facing theorem names.
-- [ ] Each paper-facing name maps to a Lean facade declaration or an internal declaration.
-- [ ] The final theorem target is mathlib `RiemannHypothesis`.
-- [ ] Wrapper theorems are separated from mathematical content theorems.
+- [x] `docs/THEOREM_MAP_REVIEW.md` lists the paper-facing theorem names.
+- [x] Each paper-facing name maps to a Lean facade declaration or an internal declaration.
+- [x] The final theorem target is mathlib `RiemannHypothesis`.
+- [x] Wrapper theorems are separated from mathematical content theorems.
 
 ## Paper
 
@@ -37,18 +37,18 @@ Use this checklist before sending the repository or paper to external reviewers.
 
 ## Naming
 
-- [ ] Use `resolvent non-cancellation mechanism` instead of internal mnemonic names.
-- [ ] Use `dominant four-level block` instead of informal block names.
-- [ ] Use `calibrated residual seed` instead of informal seed names.
-- [ ] Use `off-critical regional cover` for the cover layer.
-- [ ] Use `terminal certificate` for the final packaged route.
+- [x] Use `resolvent non-cancellation mechanism` instead of internal mnemonic names.
+- [x] Use `dominant four-level block` instead of informal block names.
+- [x] Use `calibrated residual seed` instead of informal seed names.
+- [x] Use `off-critical regional cover` for the cover layer.
+- [x] Use `terminal certificate` for the final packaged route.
 
 ## Reviewer audit points
 
-- [ ] Can a reviewer identify the final Lean theorem?
-- [ ] Can a reviewer identify the exact build command?
-- [ ] Can a reviewer see where zeta enters?
-- [ ] Can a reviewer distinguish formal plumbing from analytic inputs?
+- [x] Can a reviewer identify the final Lean theorem?
+- [x] Can a reviewer identify the exact build command?
+- [x] Can a reviewer see where zeta enters?
+- [x] Can a reviewer distinguish formal plumbing from analytic inputs?
 - [ ] Can a reviewer reproduce the build from a clean clone?
 
 ## Ready condition
