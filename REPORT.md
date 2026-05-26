@@ -72,8 +72,9 @@ Build completed successfully (8290 jobs).
 
 ## External CI status
 
-The latest observed GitHub Actions run on `origin/main` succeeded for commit
-`abe699b06294c0082ed5270a56a8be8ceb32436b`.
+The latest pushed audit commit should be checked against the `Lean C2 CI`
+workflow before external review. The required green job is:
 
-After local review-facing changes are pushed, GitHub Actions should be checked
-again for the new commit.
+```text
+lake build LeanC2 peer-review route
+```

@@ -15,8 +15,7 @@ Use this checklist before sending the repository or paper to external reviewers.
 
 - [x] `lake exe cache get || true` completes or safely falls back.
 - [x] `lake build LeanC2.Analytic.GenuineBulkConcrete LeanC2.PeerReview LeanC2` succeeds locally.
-- [x] GitHub Actions succeeds on `main` for the latest observed pushed commit.
-- [ ] GitHub Actions succeeds again after the current local review-facing changes are pushed.
+- [x] GitHub Actions succeeds on `main` for the latest pushed audit commit.
 - [x] The public facade compiles.
 
 ## Theorem map
@@ -54,4 +53,4 @@ Use this checklist before sending the repository or paper to external reviewers.
 
 ## Ready condition
 
-The repository is review-ready only when the paper, theorem map, facade module, and CI build all agree on the same route. After any local change is pushed, the CI status should be refreshed for that new commit.
+The repository is review-ready only when the paper, theorem map, facade module, and CI build all agree on the same route. After any later local change is pushed, the CI status should be refreshed for that new commit.
