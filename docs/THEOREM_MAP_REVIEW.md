@@ -25,6 +25,10 @@ namespace C2.PeerReview
 
 `LeanC2/PeerReview.lean` is the paper-facing entry point. It imports the concrete route and provides stable public aliases/wrappers without renaming the internal development.
 
+The public inventory of bound packages, certificates, residual budgets, and
+oscillatory witnesses is maintained in
+`docs/BOUNDS_CERTIFICATES_WITNESSES.md`.
+
 ## 1. Canonical endpoint
 
 ### Public facade name
@@ -159,6 +163,10 @@ Provides local punctured nonvanishing near zeros on the critical line.
 - `C2.PeerReview.DominantFourLevelBlockInequality`
 - `C2.PeerReview.ResidualBudgetDominance`
 - `C2.PeerReview.CalibratedResidualSeed`
+- `C2.PeerReview.ExpandedScalarMiddleRegionCertificate`
+- `C2.PeerReview.CanonicalClosedScaledResidualBudgetMiddleRegionData`
+- `C2.PeerReview.ResolventNoteMiddleRegionCertificate`
+- `C2.PeerReview.ExponentialPointwiseOscillatoryResidualUpper`
 - `C2.PeerReview.ResolventNonCancellationCriterion_of_budgetBounds`
 - `C2.PeerReview.AdjustedResolventNonCancellationCriterion_of_residualBudgetBounds`
 - `C2.PeerReview.FiniteResolventNonCancellationCriterion_of_splitBounds`
@@ -192,6 +200,9 @@ The public tree should expose this layer as resolvent non-cancellation, dominant
 ### Role
 
 This layer proves nonvanishing in the middle region through an explicit dominance inequality: a main resolvent/four-level block dominates the residual budgets.
+
+The full bounds/certificates/witness inventory for this layer is listed in
+`docs/BOUNDS_CERTIFICATES_WITNESSES.md`.
 
 ## 7. Terminal package
 

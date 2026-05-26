@@ -50,6 +50,287 @@ abbrev ResidualBudgetDominance :=
 abbrev CalibratedResidualSeed :=
   C2.C2BalancingSeedFactorScaledBound
 
+/-! ## Audit-facing certificate packages -/
+
+abbrev GenuineNearCriticalZeroData := C2.GenuineFInfiniteNearAxisData
+
+abbrev GenuineTaylorBoundsFamilyData :=
+  C2.GenuineFInfiniteTaylorBoundsFamilyData
+
+abbrev GenuineLeibnizTaylorBoundsFamilyData :=
+  C2.GenuineFInfiniteLeibnizTaylorBoundsFamilyData
+
+abbrev GenuineRectangularCentralBoundsData :=
+  C2.GenuineFInfiniteRectangularCentralRotatedConeMomentG11BoundsData
+
+abbrev ContinuedBulkNearCriticalZeroData :=
+  C2.C2OddTailContinuedBalancingSeedBulkModelNearAxisData
+
+abbrev ContinuedBulkMiddleRegionRouteData :=
+  C2.C2OddTailContinuedBalancingSeedBulkModelBulkRouteData
+
+abbrev ContinuedBulkMiddleRegionBoundsData :=
+  C2.C2OddTailContinuedBalancingSeedBulkModelBulkBoundsData
+
+abbrev ContinuedBulkMiddleRegionData :=
+  C2.C2OddTailContinuedBalancingSeedBulkModelBulkRegionData
+
+abbrev ContinuedBulkDominantBlockRouteData :=
+  C2.C2OddTailContinuedBalancingSeedBulkModelQuartetBulkRouteData
+
+abbrev ContinuedBulkDominantBlockBoundsData :=
+  C2.C2OddTailContinuedBalancingSeedBulkModelQuartetBulkBoundsData
+
+abbrev ContinuedBulkEdgeRegionData :=
+  C2.C2OddTailContinuedBalancingSeedBulkModelEdgeData
+
+abbrev ContinuedBulkNearMiddleEdgeData :=
+  C2.C2OddTailContinuedBalancingSeedBulkModelNearBulkEdgeData
+
+abbrev ContinuedBulkNearMiddleBoundsEdgeData :=
+  C2.C2OddTailContinuedBalancingSeedBulkModelNearBulkBoundsEdgeData
+
+abbrev ContinuedBulkRegionalRouteData :=
+  C2.C2OddTailContinuedBalancingSeedBulkModelRegionalBulkRouteData
+
+abbrev ContinuedBulkRegionalBoundsData :=
+  C2.C2OddTailContinuedBalancingSeedBulkModelRegionalBulkBoundsData
+
+abbrev ExpandedScalarCoverCertificate := C2.C2ExpandedScalarCoverData
+
+abbrev ExpandedScalarScaleBounds := C2.C2ExpandedScalarScaleData
+
+abbrev ExpandedScalarHorizontalBudget := C2.C2ExpandedHorizontalLayerBudget
+
+abbrev ExpandedScalarOddTruncationBudget := C2.C2ExpandedOddTruncationBudget
+
+abbrev ExpandedScalarMainInequalities := C2.C2ExpandedScalarMainInequalities
+
+abbrev ExpandedScalarLocalBulkCertificate := C2.C2ExpandedScalarLocalBulkData
+
+abbrev ExpandedScalarChoiceRegions := C2.C2ExpandedScalarChoiceRegions
+
+abbrev ExpandedScalarCanonicalCoverCertificate :=
+  C2.C2ExpandedScalarCanonicalCoverData
+
+abbrev ExpandedScalarMiddleRegionCertificate :=
+  C2.C2ExpandedScalarMiddleRegionData
+
+abbrev ComponentTruncationLocalCertificate :=
+  C2.C2QuartetComponentTruncationLocalData
+
+abbrev ComponentTruncationMiddleRegionCertificate :=
+  C2.C2QuartetComponentTruncationMiddleRegionData
+
+abbrev ResolventNoteLocalCertificate :=
+  C2.C2QuartetComponentResolventNoteLocalData
+
+abbrev ResolventNoteMiddleRegionCertificate :=
+  C2.C2QuartetComponentResolventNoteMiddleRegionData
+
+abbrev CanonicalClosedScaledMiddleCoverCertificate :=
+  C2.C2CanonicalClosedScaledMiddleCoverData
+
+abbrev CanonicalClosedScaledCoverCertificate :=
+  C2.C2CanonicalClosedScaledCoverData
+
+abbrev CanonicalClosedScaledMiddleRegionCertificate :=
+  C2.C2CanonicalClosedScaledMiddleRegionData
+
+abbrev CanonicalClosedScaledLocalCertificate :=
+  C2.C2CanonicalClosedScaledLocalData
+
+abbrev CanonicalClosedScaledVerticalBudgetLocalData :=
+  C2.C2CanonicalClosedScaledVerticalBudgetLocalData
+
+abbrev CanonicalClosedScaledVerticalBudgetMiddleRegionData :=
+  C2.C2CanonicalClosedScaledVerticalBudgetMiddleRegionData
+
+abbrev CanonicalClosedScaledVerticalTruncationLocalData :=
+  C2.C2CanonicalClosedScaledVerticalTruncationLocalData
+
+abbrev CanonicalClosedScaledVerticalTruncationMiddleRegionData :=
+  C2.C2CanonicalClosedScaledVerticalTruncationMiddleRegionData
+
+abbrev CanonicalClosedScaledResidualBudgetLocalData :=
+  C2.C2CanonicalClosedScaledResidualBudgetLocalData
+
+abbrev CanonicalClosedScaledResidualBudgetMiddleRegionData :=
+  C2.C2CanonicalClosedScaledResidualBudgetMiddleRegionData
+
+abbrev CanonicalClosedScaledMiddleLocalData :=
+  C2.C2CanonicalClosedScaledMiddleLocalData
+
+abbrev ExplicitScalarExactZetaMiddleRegionCertificate :=
+  C2.C2ExplicitScalarExactZetaMiddleRegionData
+
+abbrev ExpandedExactZetaMiddleRegionCertificate :=
+  C2.C2ExpandedExactZetaMiddleRegionData
+
+abbrev ResolventNonCancellationGenuineCentralLocalCertificate :=
+  C2.C2ResolventNonCancellationGenuineCentralLocalData
+
+abbrev ResolventNonCancellationGenuineCentralMiddleRegionCertificate :=
+  C2.C2ResolventNonCancellationGenuineCentralMiddleRegionData
+
+abbrev ResolventNonCancellationExactGenuineCentralLocalCertificate :=
+  C2.C2ResolventNonCancellationExactGenuineCentralLocalData
+
+abbrev ResolventNonCancellationExactGenuineCentralMiddleRegionCertificate :=
+  C2.C2ResolventNonCancellationExactGenuineCentralMiddleRegionData
+
+/-! ## Audit-facing bound packages -/
+
+abbrev ContinuedBulkConcreteEstimates :=
+  C2.C2OddTailContinuedBalancingSeedBulkConcreteEstimates
+
+abbrev ContinuedBulkDominantBlockConcreteEstimates :=
+  C2.C2OddTailContinuedBalancingSeedBulkQuartetConcreteEstimates
+
+abbrev ContinuedBulkComponentEstimates :=
+  C2.C2OddTailContinuedBalancingSeedBulkQuartetComponentEstimates
+
+abbrev ContinuedBulkExactEstimates :=
+  C2.C2OddTailContinuedBalancingSeedBulkQuartetExactEstimates
+
+abbrev ContinuedBulkTriangleEstimates :=
+  C2.C2OddTailContinuedBalancingSeedBulkQuartetTriangleEstimates
+
+abbrev ContinuedBulkClosedEstimates :=
+  C2.C2OddTailContinuedBalancingSeedBulkQuartetClosedEstimates
+
+abbrev ContinuedBulkCanonicalClosedEstimates :=
+  C2.C2OddTailContinuedBalancingSeedBulkQuartetCanonicalClosedEstimates
+
+abbrev ContinuedBulkZetaDepthCoreEstimates :=
+  C2.C2OddTailContinuedBalancingSeedBulkQuartetZetaDepthCoreEstimates
+
+abbrev BalancingSeedConcreteEstimates :=
+  C2.C2OddTailBalancingSeedConcreteEstimates
+
+abbrev BalancingSeedRefinedConcreteEstimates :=
+  C2.C2OddTailBalancingSeedRefinedConcreteEstimates
+
+abbrev BalancingSeedExplicitAnchorEstimates :=
+  C2.C2OddTailBalancingSeedExplicitAnchorEstimates
+
+abbrev ContinuedBulkExplicitFiniteCoreEstimates :=
+  C2.C2OddTailContinuedBalancingSeedBulkQuartetExplicitFiniteCoreEstimates
+
+abbrev ContinuedBulkExplicitScalarEstimates :=
+  C2.C2OddTailContinuedBalancingSeedBulkQuartetExplicitScalarEstimates
+
+abbrev ContinuedBulkExplicitScalarExactZetaEstimates :=
+  C2.C2OddTailContinuedBalancingSeedBulkQuartetExplicitScalarExactZetaEstimates
+
+abbrev ContinuedBulkExpandedExactZetaEstimates :=
+  C2.C2OddTailContinuedBalancingSeedBulkQuartetExpandedExactZetaEstimates
+
+abbrev ExpandedExactZetaDominanceEstimates :=
+  C2.C2ExpandedExactZetaDominanceEstimates
+
+abbrev ContinuedBulkCanonicalClosedScaledEstimates :=
+  C2.C2OddTailContinuedBalancingSeedBulkQuartetCanonicalClosedScaledEstimates
+
+abbrev ExpandedExactZetaScalarEstimates :=
+  C2.C2ExpandedExactZetaScalarEstimates
+
+abbrev BalancingSeedExplicitCutoffEstimates :=
+  C2.C2OddTailBalancingSeedExplicitCutoffEstimates
+
+abbrev BalancingSeedExplicitCutoffOneLtEstimates :=
+  C2.C2OddTailBalancingSeedExplicitCutoffOneLtEstimates
+
+/-! ## Audit-facing oscillatory witnesses -/
+
+noncomputable abbrev PointwiseOscillatoryWitnessMain
+    (oscillatoryMoment : ℕ → ℂ → ℂ) (J : ℕ) (cutoffScale : ℂ → ℝ) :
+    ℂ → ℂ :=
+  C2.c2ConcreteResolventNonCancellationPointwiseOscillatoryMain
+    oscillatoryMoment J cutoffScale
+
+noncomputable abbrev PointwiseOscillatoryResidualUpper
+    (oscillatoryMoment : ℕ → ℂ → ℂ) (J : ℕ)
+    (cutoffScale remainderUpper : ℂ → ℝ) : ℂ → ℝ :=
+  C2.c2ConcreteResolventNonCancellationPointwiseOscillatoryResidualUpper
+    oscillatoryMoment J cutoffScale remainderUpper
+
+noncomputable abbrev AdjustedPointwiseOscillatoryMargin
+    (tiltSeed : ℂ → ℂ) (coreCutoff : ℕ → ℕ)
+    (tiltConstant tiltScale
+      horizontalConstant horizontalScale horizontalRatio
+      cutoffConstant cutoffScale remainderUpper : ℂ → ℝ)
+    (oscillatoryMoment : ℕ → ℂ → ℂ) (J : ℕ) : ℂ → ℝ :=
+  C2.c2ConcreteResolventNonCancellationAdjustedPointwiseOscillatoryMargin
+    tiltSeed coreCutoff
+    tiltConstant tiltScale
+    horizontalConstant horizontalScale horizontalRatio
+    cutoffConstant cutoffScale remainderUpper
+    oscillatoryMoment J
+
+noncomputable abbrev AdjustedExponentialPointwiseOscillatoryMargin
+    (tiltSeed : ℂ → ℂ) (coreCutoff : ℕ → ℕ)
+    (tiltConstant tiltScale
+      horizontalConstant horizontalScale horizontalRatio
+      cutoffConstant cutoffScale : ℂ → ℝ)
+    (K M J : ℕ) (X : ℝ) : ℂ → ℝ :=
+  C2.c2ConcreteResolventNonCancellationAdjustedExponentialPointwiseOscillatoryMargin
+    tiltSeed coreCutoff
+    tiltConstant tiltScale
+    horizontalConstant horizontalScale horizontalRatio
+    cutoffConstant cutoffScale
+    K M J X
+
+noncomputable abbrev ExponentialPointwiseOscillatoryWitnessMain
+    (K M J : ℕ) (X : ℝ) : ℂ → ℂ :=
+  C2.c2ExponentialPointwiseOscillatoryMain K M J X
+
+noncomputable abbrev ExponentialPointwiseOscillatoryRemainderTerm
+    (K M J : ℕ) (X : ℝ) : ℂ → ℂ :=
+  C2.c2ExponentialPointwiseOscillatoryRemainderTerm K M J X
+
+noncomputable abbrev ExponentialPointwiseOscillatoryRemainderUpper
+    (K M J : ℕ) (X : ℝ) : ℂ → ℝ :=
+  C2.c2ExponentialPointwiseOscillatoryRemainderUpper K M J X
+
+noncomputable abbrev ExponentialPointwiseOscillatoryResidualUpper
+    (K M J : ℕ) (X : ℝ) : ℂ → ℝ :=
+  C2.c2ExponentialCutoffErrorPointwiseOscillatoryUpper K M J X
+
+noncomputable abbrev RectangularExponentialPointwiseOscillatoryMain
+    (s : ℂ) (K M J : ℕ) (X : ℝ) : ℂ :=
+  C2.rectangularExponentialPointwiseOscillatoryMain s K M J X
+
+noncomputable abbrev RectangularExponentialPointwiseOscillatoryExactUpper
+    (s : ℂ) (K M J : ℕ) (X : ℝ) : ℝ :=
+  C2.rectangularExponentialPointwiseOscillatoryExactUpper s K M J X
+
+noncomputable abbrev RectangularExponentialPointwiseOscillatoryExpUpper
+    (s : ℂ) (K M J : ℕ) (X : ℝ) : ℝ :=
+  C2.rectangularExponentialPointwiseOscillatoryExpUpper s K M J X
+
+noncomputable abbrev RectangularExponentialPointwiseOscillatoryUpper
+    (s : ℂ) (K M J : ℕ) (X : ℝ) : ℝ :=
+  C2.rectangularExponentialPointwiseOscillatoryUpper s K M J X
+
+theorem PointwiseOscillatoryResidualUpper_eq_main_add_remainderUpper
+    (oscillatoryMoment : ℕ → ℂ → ℂ) (J : ℕ)
+    (cutoffScale remainderUpper : ℂ → ℝ) (s : ℂ) :
+    PointwiseOscillatoryResidualUpper
+      oscillatoryMoment J cutoffScale remainderUpper s =
+      ‖PointwiseOscillatoryWitnessMain oscillatoryMoment J cutoffScale s‖ +
+        remainderUpper s := by
+  rfl
+
+theorem ExponentialPointwiseOscillatoryResidualUpper_eq_main_add_remainderUpper
+    (K M J : ℕ) (X : ℝ) (s : ℂ) :
+    ExponentialPointwiseOscillatoryResidualUpper K M J X s =
+      ‖ExponentialPointwiseOscillatoryWitnessMain K M J X s‖ +
+        ExponentialPointwiseOscillatoryRemainderUpper K M J X s := by
+  exact
+    C2.c2ExponentialCutoffErrorPointwiseOscillatoryUpper_eq_main_add_remainderUpper
+      K M J X s
+
 theorem ResolventNonCancellationCriterion_of_budgetBounds
     {tiltConstant tiltScale
       horizontalConstant horizontalScale horizontalRatio

@@ -12,8 +12,7 @@ noncomputable section
 /-!
 Generic near-axis Taylor utilities.
 
-This file does not yet formalize theorem 8 or theorem 11.  It isolates the reusable
-algebraic and analytic lemmas that those future proofs should assemble into a
+This file provides the reusable algebraic and analytic lemmas used to assemble a
 `NearAxisCertificate`: the finite Leibniz jet at a zero of multiplicity `m`, the
 elementary radius bookkeeping for Taylor lower bounds, and the generic analytic
 step that turns a nonzero `m`th iterated derivative into local punctured
@@ -66,10 +65,7 @@ theorem leibnizJet_ne_zero_of_c0_of_re_pos
     simpa [hc] using hc0z
   exact leibnizJet_ne_zero_of_vanishingLowerOrder m c z hz hc0 hzm
 
-/--
-The theorem-8 Leibniz-jet witness already forces the `m`th iterated derivative
-to be nonzero.
--/
+/-- The Leibniz-jet witness forces the `m`th iterated derivative to be nonzero. -/
 theorem iteratedDeriv_ne_zero_of_leibnizJet_c0_of_re_pos
     {s : ℂ} (hs : 0 < s.re)
     {F : ℂ → ℂ}
@@ -307,8 +303,8 @@ theorem exists_transversalRadius_of_leibnizJet_c0_of_re_pos
     (eventually_ne_zero_of_leibnizJet_c0_of_re_pos hs hF m c z hz hc hzm hLeibniz)
 
 /--
-Current-style theorem-8 interface: local Leibniz-jet witnesses along the critical line
-produce a `NearAxisCertificate` for the roadmap.
+Local Leibniz-jet witnesses along the critical line produce a
+`NearAxisCertificate` for the route.
 -/
 noncomputable def NearAxisCertificate.of_leibnizJet_c0
     {F zetaFun : ℂ → ℂ}

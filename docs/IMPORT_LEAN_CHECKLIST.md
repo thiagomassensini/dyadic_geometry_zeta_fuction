@@ -42,7 +42,7 @@ import LeanC2.Analytic.GenuineBulkConcrete
 
 Make sure this module exists after import.
 
-## 4. Expected public facade
+## 4. Public facade
 
 The public facade should expose:
 
@@ -54,6 +54,12 @@ C2.PeerReview.RiemannHypothesis_of_C2Nonvanishing_offCriticalIdentity
 C2.PeerReview.OffCriticalNonvanishing_of_regionalCover
 C2.PeerReview.RiemannHypothesis_of_regionalCover
 C2.PeerReview.RiemannHypothesis_of_terminalCertificate
+```
+
+The facade also exposes the audit inventory listed in:
+
+```text
+docs/BOUNDS_CERTIFICATES_WITNESSES.md
 ```
 
 ## 5. CI command

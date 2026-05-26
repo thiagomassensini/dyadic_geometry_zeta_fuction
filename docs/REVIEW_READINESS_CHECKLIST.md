@@ -15,7 +15,8 @@ Use this checklist before sending the repository or paper to external reviewers.
 
 - [x] `lake exe cache get || true` completes or safely falls back.
 - [x] `lake build LeanC2.Analytic.GenuineBulkConcrete LeanC2.PeerReview LeanC2` succeeds locally.
-- [ ] GitHub Actions succeeds on `main`.
+- [x] GitHub Actions succeeds on `main` for the latest observed pushed commit.
+- [ ] GitHub Actions succeeds again after the current local review-facing changes are pushed.
 - [x] The public facade compiles.
 
 ## Theorem map
@@ -27,13 +28,13 @@ Use this checklist before sending the repository or paper to external reviewers.
 
 ## Paper
 
-- [ ] The title is neutral.
-- [ ] The abstract states the formal endpoint precisely.
-- [ ] The introduction separates the C2 construction from the RH transfer.
-- [ ] The middle-region theorem uses formal terminology.
-- [ ] Historical/internal names are avoided in theorem statements.
-- [ ] The reproducibility section points to the CI command.
-- [ ] The paper states which certificates are inputs to the terminal theorem.
+- [x] The title is neutral.
+- [x] The abstract states the formal endpoint precisely.
+- [x] The introduction separates the C2 construction from the RH transfer.
+- [x] The middle-region theorem uses formal terminology.
+- [x] Historical/internal names are avoided in theorem statements.
+- [x] The reproducibility section points to the CI command.
+- [x] The paper states which certificates are inputs to the terminal theorem.
 
 ## Naming
 
@@ -49,8 +50,8 @@ Use this checklist before sending the repository or paper to external reviewers.
 - [x] Can a reviewer identify the exact build command?
 - [x] Can a reviewer see where zeta enters?
 - [x] Can a reviewer distinguish formal plumbing from analytic inputs?
-- [ ] Can a reviewer reproduce the build from a clean clone?
+- [x] Can a reviewer reproduce the build from a clean clone? Latest observed GitHub Actions run on `origin/main` succeeded.
 
 ## Ready condition
 
-The repository is review-ready only when the paper, theorem map, facade module, and CI build all agree on the same route.
+The repository is review-ready only when the paper, theorem map, facade module, and CI build all agree on the same route. After any local change is pushed, the CI status should be refreshed for that new commit.

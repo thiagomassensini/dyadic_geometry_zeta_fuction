@@ -26,9 +26,12 @@ LeanC2/                  Lean source tree and peer-review facade
 .github/workflows/       CI workflows
 ```
 
+The review-facing inventory for bounds, certificates, residual budgets, and
+oscillatory witnesses is in `docs/BOUNDS_CERTIFICATES_WITNESSES.md`.
+
 ## Main verification command
 
-Once the Lean project files are present at the repository root, the intended verification command is:
+The Lean project files are present at the repository root. The main verification command is:
 
 ```bash
 lake build LeanC2.Analytic.GenuineBulkConcrete LeanC2.PeerReview LeanC2
@@ -46,7 +49,8 @@ For example:
 - the finite dyadic block is exposed as a `dominant four-level block`;
 - the correction seed is exposed as a `calibrated residual seed`.
 
-See `docs/FORMAL_NAMING.md`.
+See `docs/FORMAL_NAMING.md` and
+`docs/BOUNDS_CERTIFICATES_WITNESSES.md`.
 
 ## Status
 

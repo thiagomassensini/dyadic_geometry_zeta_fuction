@@ -2,10 +2,11 @@
 
 This file tracks the migration from project notes into the official peer-review manuscript.
 
-## Current migrated file
+## Current migrated files
 
 ```text
 paper/official_draft_v1.md
+paper/main.tex
 ```
 
 ## Source material used
@@ -31,9 +32,9 @@ Internal names are converted to review-facing terms according to:
 docs/FORMAL_NAMING.md
 ```
 
-## Current state of the official draft
+## Current state of the official paper
 
-`paper/official_draft_v1.md` currently contains the route skeleton:
+`paper/main.tex` now contains the review-facing route:
 
 1. formal endpoint;
 2. off-critical strip;
@@ -44,16 +45,15 @@ docs/FORMAL_NAMING.md
 7. middle-region non-cancellation;
 8. edge-region certificate;
 9. terminal certificate;
-10. reproducibility.
+10. Lean theorem correspondence table;
+11. reproducibility.
 
-## Next migration steps
+## Remaining editorial steps
 
-1. Expand the C2/zeta identity section from the transfer and continuation files.
-2. Expand the regional cover section from the roadmap interfaces.
-3. Expand the near-critical-zero section from the continuation/G11 notes.
-4. Expand the middle-region section using formal names only.
-5. Add a theorem correspondence table matching the paper to `LeanC2/PeerReview.lean`.
-6. Convert the Markdown draft into `paper/main.tex` once the structure stabilizes.
+1. Expand prose explanations around the C2/zeta identity if needed for readers.
+2. Expand prose explanations around the regional cover if needed for readers.
+3. Add bibliography entries before a submission PDF is cut.
+4. Keep `paper/main.tex`, `LeanC2/PeerReview.lean`, and `docs/THEOREM_MAP_REVIEW.md` synchronized.
 
 ## Guardrail
 

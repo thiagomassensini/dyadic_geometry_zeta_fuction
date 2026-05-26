@@ -351,10 +351,10 @@ noncomputable def toG11Certificate_of_logLinearRatioBound
 end G11TaylorBoundsFamilyData
 
 /--
-Theorem-8 aware family version of theorem-11 local Taylor data.
+Leibniz-aware family version of local Taylor data.
 
-This is the current roadmap-faithful local target: a Leibniz-jet witness for the
-principal derivative, plus the quantitative Taylor lower bound.
+This local target packages a Leibniz-jet witness for the principal derivative,
+plus the quantitative Taylor lower bound.
 -/
 structure G11LeibnizTaylorBoundsFamilyData (F zetaFun : ℂ → ℂ) where
   multiplicity : ∀ ρ, IsCriticalZero zetaFun ρ → ℕ

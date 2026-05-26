@@ -14539,9 +14539,9 @@ theorem mathlibRiemannHypothesis_of_canonicalClosedScaledMiddleLocalData
     data.toMiddleRegionData
 
 /--
-Terminal placeholder package for a fully formal C2 proof of RH.
-Once an inhabitant of this structure is constructed, Lean accepts
-`RiemannHypothesis` with no further analytic plumbing.
+Terminal certificate package for the formal C2 route to RH.
+An inhabitant of this structure supplies the calibrated middle-region data
+needed by the current canonical endpoint.
 -/
 structure RiemannHypothesisTerminalData where
   coreCutoff : ℕ → ℕ

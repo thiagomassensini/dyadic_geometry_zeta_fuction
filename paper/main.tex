@@ -12,7 +12,7 @@
 \newtheorem{definition}[theorem]{Definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{Dyadic Geometry of the Zeta Function}
+\title{A Dyadic C2 Formal Route for Off-Critical Zeta Nonvanishing}
 \author{Thiago F. M. Massensini Silva}
 \date{Draft for formal review}
 
@@ -21,7 +21,7 @@
 \maketitle
 
 \begin{abstract}
-We present a dyadic C2 operator framework for studying the off-critical nonvanishing problem associated with the Riemann zeta function.  The construction separates the proof architecture into a local near-critical-zero regime, a middle-region dominance regime, an edge regime, and a transfer theorem.  The formal endpoint is the official \texttt{RiemannHypothesis} proposition in mathlib.  The accompanying Lean development verifies the route from the stated C2 certificates and the C2/zeta identity to this endpoint.
+We present a dyadic C2 operator framework for studying the off-critical nonvanishing problem associated with the Riemann zeta function.  The construction separates the proof architecture into a local near-critical-zero regime, a middle-region resolvent non-cancellation regime, an edge regime, and a transfer theorem.  The formal endpoint is the official \texttt{RiemannHypothesis} proposition in mathlib.  The accompanying Lean development verifies the route from the stated C2 terminal certificate, the off-critical regional cover, and the C2/zeta identity to this endpoint.
 \end{abstract}
 
 \section{Introduction}
@@ -36,6 +36,37 @@ The proof architecture is organized into five layers:
   \item middle-region non-cancellation via a dominance criterion;
   \item transfer to the official \texttt{RiemannHypothesis} proposition in mathlib.
 \end{enumerate}
+
+The first four layers are C2-side statements.  The final layer is a transfer
+from C2-side off-critical nonvanishing to the classical zeta statement through
+the formal C2/zeta identity.  The paper therefore distinguishes the analytic
+certificates consumed by the C2 route from the final mathlib endpoint.
+
+\section{Audit scope}
+
+The review-facing Lean entry point is
+\[
+  \texttt{import LeanC2.PeerReview}.
+\]
+All paper-facing names below are exposed in the namespace
+\[
+  \texttt{C2.PeerReview}.
+\]
+
+The route audited here is conditional on the stated certificate packages.  The
+terminal certificate consumed by the endpoint is
+\[
+  \texttt{RiemannHypothesisTerminalCertificate}.
+\]
+The bound packages, residual budgets, regional certificates, and oscillatory
+witnesses exposed for audit are listed in
+\[
+  \texttt{docs/BOUNDS\_CERTIFICATES\_WITNESSES.md}.
+\]
+The theorem correspondence is maintained in
+\[
+  \texttt{docs/THEOREM\_MAP\_REVIEW.md}.
+\]
 
 \section{Preliminaries}
 
@@ -81,6 +112,13 @@ The near-critical-zero regime is handled by a local punctured nonvanishing certi
 Under the continuation hypotheses for the genuine C2 operator, the operator is locally nonvanishing in the punctured neighborhoods required by the near-critical-zero region.
 \end{theorem}
 
+The public Lean facade exposes this layer through:
+\begin{verbatim}
+GenuineNearCriticalZeroData
+GenuineTaylorBoundsFamilyData
+GenuineLeibnizTaylorBoundsFamilyData
+\end{verbatim}
+
 \section{Middle-region non-cancellation}
 
 The middle-region argument is expressed as a dominance criterion.
@@ -97,6 +135,18 @@ The residual budget is the sum of the remaining tail, horizontal, tilt, and cuto
 If the dominant main term is strictly larger than the residual budget throughout the middle region, then the C2 operator is nonvanishing throughout the middle region.
 \end{theorem}
 
+The review-facing middle-region data include
+\[
+\begin{gathered}
+  \texttt{ExpandedScalarMiddleRegionCertificate},\\
+  \texttt{CanonicalClosedScaledResidualBudgetMiddleRegionData},\\
+  \texttt{ResolventNoteMiddleRegionCertificate},\\
+  \texttt{ExponentialPointwiseOscillatoryResidualUpper}.
+\end{gathered}
+\]
+The oscillatory witness keeps the complex oscillatory main term separate from
+the coarse remainder bound.
+
 \section{Edge-region regime}
 
 The edge-region certificate handles the remaining part of the off-critical strip not covered by the near-critical-zero and middle-region regimes.
@@ -107,8 +157,31 @@ The edge-region certificate handles the remaining part of the off-critical strip
 A terminal certificate consisting of continuation data, near-critical-zero data, middle-region data, edge-region data, and a cover proof implies off-critical nonvanishing of the C2 operator.
 \end{theorem}
 
+In the current canonical endpoint, the terminal package is represented in Lean
+by
+\[
+  \texttt{RiemannHypothesisTerminalCertificate}.
+\]
+It is obtained from calibrated canonical middle-region data, with public
+facade names for the surrounding inputs:
+\[
+\begin{gathered}
+  \texttt{GenuineC2ContinuationData},\quad
+  \texttt{ContinuedBulkNearCriticalZeroData},\\
+  \texttt{CanonicalClosedScaledMiddleLocalData},\quad
+  \texttt{CanonicalClosedScaledCoverCertificate},\\
+  \texttt{OffCriticalRegionalCover}.
+\end{gathered}
+\]
+Equivalent expanded-scalar and exact-zeta middle-region packages are exposed in
+the public inventory for reviewers who want to audit the route at a more
+granular level.
+
 \begin{corollary}[Formal endpoint]
-The terminal C2 certificate implies the official \texttt{RiemannHypothesis} proposition in mathlib.
+The terminal C2 certificate implies the official mathlib proposition
+\[
+  \texttt{RiemannHypothesis}.
+\]
 \end{corollary}
 
 \section{Lean formalization}
@@ -125,15 +198,36 @@ lake build LeanC2.Analytic.GenuineBulkConcrete LeanC2.PeerReview LeanC2
 
 The paper-facing theorem map is maintained in \texttt{docs/THEOREM\_MAP\_REVIEW.md}.
 
+\subsection{Theorem correspondence}
+
+\begin{center}
+\begin{tabular}{ll}
+\hline
+Paper-facing statement & Lean facade declaration \\
+\hline
+Fundamental C2/zeta identity &
+\texttt{C2FundamentalIdentityOnOffCriticalStrip} \\
+Transfer to zeta nonvanishing &
+\texttt{ZetaNonvanishing\_of\_C2Nonvanishing} \\
+Transfer to mathlib RH &
+\texttt{RiemannHypothesis\_of\_C2Nonvanishing} \\
+Regional cover assembly &
+\texttt{OffCriticalNonvanishing\_of\_regionalCover} \\
+Middle-region criterion &
+\texttt{ResolventNonCancellationCriterion\_of\_budgetBounds} \\
+Terminal certificate endpoint &
+\texttt{RiemannHypothesis\_of\_terminalCertificate} \\
+\hline
+\end{tabular}
+\end{center}
+
 \section{Reproducibility}
 
 The reproducibility guide is maintained in \texttt{docs/REPRODUCIBILITY.md}.
+The CI workflow runs the same Lean command displayed above.
 
 \section{Discussion}
 
 The central separation in the construction is between the C2-native nonvanishing mechanism and the final transfer to the classical zeta statement.  The formal endpoint is not a local replacement for RH, but the official mathlib \texttt{RiemannHypothesis} proposition.
-
-\bibliographystyle{alpha}
-\bibliography{references}
 
 \end{document}
