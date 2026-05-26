@@ -39,8 +39,10 @@ The review-facing terminal theorem should be read as a route to this endpoint, n
 
 - `README.md` — repository overview.
 - `docs/FORMAL_NAMING.md` — public naming conventions.
+- `docs/MAIN_ROUTE_MAP.md` — public English map of the current route.
 - `docs/THEOREM_MAP_REVIEW.md` — theorem map for reviewers.
 - `docs/REPRODUCIBILITY.md` — this file.
+- `docs/LEAN_MODULE_LAYOUT.md` — staged Lean module layout.
 - `docs/BOUNDS_CERTIFICATES_WITNESSES.md` — audit inventory for bounds, certificates, budgets, and witnesses.
 - `LeanC2/PeerReview.lean` — review-facing Lean facade.
 - `.github/workflows/lean.yml` — CI workflow.
@@ -58,7 +60,14 @@ lake build LeanC2.Analytic.GenuineBulkConcrete LeanC2.PeerReview LeanC2
 Then inspect the theorem map:
 
 ```bash
+sed -n '1,260p' docs/MAIN_ROUTE_MAP.md
 sed -n '1,260p' docs/THEOREM_MAP_REVIEW.md
+```
+
+For the concrete bulk route split, inspect:
+
+```bash
+sed -n '1,220p' docs/LEAN_MODULE_LAYOUT.md
 ```
 
 ## What the CI checks

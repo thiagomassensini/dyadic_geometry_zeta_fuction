@@ -29,6 +29,12 @@ The public inventory of bound packages, certificates, residual budgets, and
 oscillatory witnesses is maintained in
 `docs/BOUNDS_CERTIFICATES_WITNESSES.md`.
 
+The public English map of the current main route is maintained in
+`docs/MAIN_ROUTE_MAP.md`.
+
+The concrete bulk implementation is split into staged modules documented in
+`docs/LEAN_MODULE_LAYOUT.md`; the public facade import above remains stable.
+
 ## 1. Canonical endpoint
 
 ### Public facade name

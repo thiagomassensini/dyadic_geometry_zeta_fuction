@@ -29,6 +29,12 @@ LeanC2/                  Lean source tree and peer-review facade
 The review-facing inventory for bounds, certificates, residual budgets, and
 oscillatory witnesses is in `docs/BOUNDS_CERTIFICATES_WITNESSES.md`.
 
+The public English map of the current route is in `docs/MAIN_ROUTE_MAP.md`.
+
+The large concrete bulk route is split into staged Lean modules documented in
+`docs/LEAN_MODULE_LAYOUT.md`; the stable public import remains
+`LeanC2.Analytic.GenuineBulkConcrete`.
+
 ## Main verification command
 
 The Lean project files are present at the repository root. The main verification command is:

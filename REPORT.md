@@ -8,7 +8,9 @@ Current contents:
 
 - review-facing documentation;
 - public theorem naming conventions;
+- public English map of the main route;
 - theorem map for reviewers;
+- staged Lean module layout for the concrete bulk route;
 - bounds, certificates, residual budgets, and witness inventory;
 - reproducibility guide;
 - imported Lean source tree under `LeanC2/`;
@@ -40,6 +42,12 @@ The public facade also exposes review-facing names for the bound packages,
 certificates, residual budgets, and oscillatory witnesses listed in
 `docs/BOUNDS_CERTIFICATES_WITNESSES.md`.
 
+The current route is summarized for reviewers in `docs/MAIN_ROUTE_MAP.md`.
+
+The former monolithic concrete bulk implementation is split under
+`LeanC2/Analytic/GenuineBulkConcrete/`. The original module
+`LeanC2.Analytic.GenuineBulkConcrete` remains as a stable facade import.
+
 ## CI behavior
 
 The repository root contains:
@@ -58,7 +66,7 @@ lake build LeanC2.Analytic.GenuineBulkConcrete LeanC2.PeerReview LeanC2
 
 ## Local verification
 
-Verified locally on 2026-05-25 with Lean/mathlib `v4.29.1`:
+Verified locally on 2026-05-26 with Lean/mathlib `v4.29.1`:
 
 ```bash
 lake build LeanC2.Analytic.GenuineBulkConcrete LeanC2.PeerReview LeanC2
@@ -67,7 +75,7 @@ lake build LeanC2.Analytic.GenuineBulkConcrete LeanC2.PeerReview LeanC2
 Result:
 
 ```text
-Build completed successfully (8290 jobs).
+Build completed successfully (8297 jobs).
 ```
 
 ## External CI status

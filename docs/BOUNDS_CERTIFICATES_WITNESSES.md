@@ -26,6 +26,8 @@ the review-facing resolvent non-cancellation terminology.
 
 No Lean source family for bounds, certificates, or witnesses remains local-only.
 The main public entry point for this inventory is `LeanC2/PeerReview.lean`.
+The concrete bulk implementation is split into staged modules documented in
+`docs/LEAN_MODULE_LAYOUT.md`.
 
 ## Near-critical-zero certificates
 
