@@ -2076,6 +2076,351 @@ noncomputable def RiemannHypothesisTerminalData.ofContinuationAndMiddleLocal
     middle_local := fun _ hs => hmiddle hs
   })
 
+noncomputable def RiemannHypothesisTerminalData.ofContinuedModelMiddleLocal
+    {coreCutoff : ℕ → ℕ} {K M : ℕ}
+    {horizontalConstant horizontalScale horizontalRatio : ℂ → ℝ}
+    (hmiddle : ∀ ⦃s : ℂ⦄,
+      s ∈ c2ExpandedScalarMiddleRegion
+        (C2OddTailContinuedBalancingSeedBulkModelNearAxisData.ofContinuedModel
+          coreCutoff K M)
+        (C2OddTailContinuedBalancingSeedBulkModelEdgeData.empty
+          (coreCutoff := coreCutoff) (K := K) (M := M)) →
+      C2CanonicalClosedScaledLocalData
+        coreCutoff K M horizontalConstant horizontalScale horizontalRatio s) :
+    RiemannHypothesisTerminalData := by
+  let nearC2 :=
+    C2OddTailContinuedBalancingSeedBulkModelNearAxisData.ofContinuedModel
+      coreCutoff K M
+  let edgeC2 :=
+    C2OddTailContinuedBalancingSeedBulkModelEdgeData.empty
+      (coreCutoff := coreCutoff) (K := K) (M := M)
+  exact (RiemannHypothesisTerminalData.ofMiddleLocalData {
+    near := nearC2
+    edge := edgeC2
+    middle_local := fun _ hs => hmiddle hs
+  })
+
+abbrev c2ContinuedModelTerminalMiddleRegion
+    (coreCutoff : ℕ → ℕ) (K M : ℕ) : Set ℂ :=
+  c2ExpandedScalarMiddleRegion
+    (C2OddTailContinuedBalancingSeedBulkModelNearAxisData.ofContinuedModel
+      coreCutoff K M)
+    (C2OddTailContinuedBalancingSeedBulkModelEdgeData.empty
+      (coreCutoff := coreCutoff) (K := K) (M := M))
+
+theorem offCriticalStripNonvanishing_of_continuedModelMiddleLocal
+    {coreCutoff : ℕ → ℕ} {K M : ℕ}
+    {horizontalConstant horizontalScale horizontalRatio : ℂ → ℝ}
+    (hmiddle : ∀ ⦃s : ℂ⦄,
+      s ∈ c2ContinuedModelTerminalMiddleRegion coreCutoff K M →
+      C2CanonicalClosedScaledLocalData
+        coreCutoff K M horizontalConstant horizontalScale horizontalRatio s) :
+    offCriticalStripNonvanishing
+      (c2OddTailContinuedBalancingSeedBulkModel coreCutoff K M) := by
+  exact offCriticalStripNonvanishing_of_canonicalClosedScaledMiddleLocalData {
+    near :=
+      C2OddTailContinuedBalancingSeedBulkModelNearAxisData.ofContinuedModel
+        coreCutoff K M
+    edge :=
+      C2OddTailContinuedBalancingSeedBulkModelEdgeData.empty
+        (coreCutoff := coreCutoff) (K := K) (M := M)
+    middle_local := fun s hs => by
+      have hs' : s ∈ c2ContinuedModelTerminalMiddleRegion coreCutoff K M := by
+        simpa [c2ContinuedModelTerminalMiddleRegion] using hs
+      exact hmiddle hs'
+  }
+
+theorem mathlibRiemannHypothesis_of_continuedModelMiddleLocal
+    {coreCutoff : ℕ → ℕ} {K M : ℕ}
+    {horizontalConstant horizontalScale horizontalRatio : ℂ → ℝ}
+    (hmiddle : ∀ ⦃s : ℂ⦄,
+      s ∈ c2ExpandedScalarMiddleRegion
+        (C2OddTailContinuedBalancingSeedBulkModelNearAxisData.ofContinuedModel
+          coreCutoff K M)
+        (C2OddTailContinuedBalancingSeedBulkModelEdgeData.empty
+          (coreCutoff := coreCutoff) (K := K) (M := M)) →
+      C2CanonicalClosedScaledLocalData
+        coreCutoff K M horizontalConstant horizontalScale horizontalRatio s) :
+    RiemannHypothesis := by
+  let terminalData :=
+    RiemannHypothesisTerminalData.ofContinuedModelMiddleLocal
+      (coreCutoff := coreCutoff) (K := K) (M := M)
+      (horizontalConstant := horizontalConstant)
+      (horizontalScale := horizontalScale)
+      (horizontalRatio := horizontalRatio)
+      hmiddle
+  exact mathlibRiemannHypothesis_of_terminalData terminalData
+
+theorem offCriticalStripNonvanishing_of_continuedModelCanonicalClosedScaledMiddlePointwiseBounds
+    {coreCutoff : ℕ → ℕ} {K M : ℕ}
+    {horizontalConstant horizontalScale horizontalRatio : ℂ → ℝ}
+    (hscale_pos : ∀ ⦃s : ℂ⦄,
+      s ∈ c2ContinuedModelTerminalMiddleRegion coreCutoff K M →
+      0 < horizontalScale s)
+    (hconstant_nonneg : ∀ ⦃s : ℂ⦄,
+      s ∈ c2ContinuedModelTerminalMiddleRegion coreCutoff K M →
+      0 ≤ horizontalConstant s)
+    (hratio_nonneg : ∀ ⦃s : ℂ⦄,
+      s ∈ c2ContinuedModelTerminalMiddleRegion coreCutoff K M →
+      0 ≤ horizontalRatio s)
+    (hratio_lt_one : ∀ ⦃s : ℂ⦄,
+      s ∈ c2ContinuedModelTerminalMiddleRegion coreCutoff K M →
+      horizontalRatio s < 1)
+    (hhorizontal : ∀ ⦃s : ℂ⦄,
+      s ∈ c2ContinuedModelTerminalMiddleRegion coreCutoff K M →
+      C2ExpandedHorizontalLayerBudget
+        coreCutoff horizontalConstant horizontalScale horizontalRatio s)
+    (hdominance : ∀ ⦃s : ℂ⦄,
+      s ∈ c2ContinuedModelTerminalMiddleRegion coreCutoff K M →
+      c2QuartetBulkGUpper
+          (c2BulkGUpper
+            (c2TiltAnalyticRegularizedUpper
+              (c2CanonicalClosedTiltConstant
+                K M horizontalConstant horizontalScale horizontalRatio)
+              (fun _ => (1 : ℝ)))
+            (c2HorizontalRegularizedUpper
+              horizontalConstant horizontalScale horizontalRatio)) s +
+        c2BulkEUpper
+          (c2CutoffUpperFromScale
+            (c2CanonicalClosedCutoffConstant K M)
+            (fun _ => (1 : ℝ))) s <
+          c2QuartetBulkK2Lower s * ((1 - ‖q s‖) * (1 + ‖q s‖ ^ 2))) :
+    offCriticalStripNonvanishing
+      (c2OddTailContinuedBalancingSeedBulkModel coreCutoff K M) := by
+  exact offCriticalStripNonvanishing_of_continuedModelMiddleLocal
+    (coreCutoff := coreCutoff) (K := K) (M := M)
+    (horizontalConstant := horizontalConstant)
+    (horizontalScale := horizontalScale)
+    (horizontalRatio := horizontalRatio)
+    (fun _ hs => {
+      horizontalScale_pos := hscale_pos hs
+      horizontalConstant_nonneg := hconstant_nonneg hs
+      horizontalRatio_nonneg := hratio_nonneg hs
+      horizontalRatio_lt_one := hratio_lt_one hs
+      horizontalLayer_bound := (hhorizontal hs).layer_bound
+      quartet_dominance := hdominance hs
+    })
+
+theorem mathlibRiemannHypothesis_of_continuedModelCanonicalClosedScaledMiddlePointwiseBounds
+    {coreCutoff : ℕ → ℕ} {K M : ℕ}
+    {horizontalConstant horizontalScale horizontalRatio : ℂ → ℝ}
+    (hscale_pos : ∀ ⦃s : ℂ⦄,
+      s ∈ c2ContinuedModelTerminalMiddleRegion coreCutoff K M →
+      0 < horizontalScale s)
+    (hconstant_nonneg : ∀ ⦃s : ℂ⦄,
+      s ∈ c2ContinuedModelTerminalMiddleRegion coreCutoff K M →
+      0 ≤ horizontalConstant s)
+    (hratio_nonneg : ∀ ⦃s : ℂ⦄,
+      s ∈ c2ContinuedModelTerminalMiddleRegion coreCutoff K M →
+      0 ≤ horizontalRatio s)
+    (hratio_lt_one : ∀ ⦃s : ℂ⦄,
+      s ∈ c2ContinuedModelTerminalMiddleRegion coreCutoff K M →
+      horizontalRatio s < 1)
+    (hhorizontal : ∀ ⦃s : ℂ⦄,
+      s ∈ c2ContinuedModelTerminalMiddleRegion coreCutoff K M →
+      C2ExpandedHorizontalLayerBudget
+        coreCutoff horizontalConstant horizontalScale horizontalRatio s)
+    (hdominance : ∀ ⦃s : ℂ⦄,
+      s ∈ c2ContinuedModelTerminalMiddleRegion coreCutoff K M →
+      c2QuartetBulkGUpper
+          (c2BulkGUpper
+            (c2TiltAnalyticRegularizedUpper
+              (c2CanonicalClosedTiltConstant
+                K M horizontalConstant horizontalScale horizontalRatio)
+              (fun _ => (1 : ℝ)))
+            (c2HorizontalRegularizedUpper
+              horizontalConstant horizontalScale horizontalRatio)) s +
+        c2BulkEUpper
+          (c2CutoffUpperFromScale
+            (c2CanonicalClosedCutoffConstant K M)
+            (fun _ => (1 : ℝ))) s <
+          c2QuartetBulkK2Lower s * ((1 - ‖q s‖) * (1 + ‖q s‖ ^ 2))) :
+    RiemannHypothesis := by
+  exact mathlibRiemannHypothesis_of_continuedModelMiddleLocal
+    (coreCutoff := coreCutoff) (K := K) (M := M)
+    (horizontalConstant := horizontalConstant)
+    (horizontalScale := horizontalScale)
+    (horizontalRatio := horizontalRatio)
+    (fun s hs => by
+      have hs' : s ∈ c2ContinuedModelTerminalMiddleRegion coreCutoff K M := by
+        simpa [c2ContinuedModelTerminalMiddleRegion] using hs
+      exact {
+        horizontalScale_pos := hscale_pos hs'
+        horizontalConstant_nonneg := hconstant_nonneg hs'
+        horizontalRatio_nonneg := hratio_nonneg hs'
+        horizontalRatio_lt_one := hratio_lt_one hs'
+        horizontalLayer_bound := (hhorizontal hs').layer_bound
+        quartet_dominance := hdominance hs'
+      })
+
+theorem offCriticalStripNonvanishing_of_continuedModelCanonicalClosedScaledMiddleResidualPointwiseBounds
+    {coreCutoff : ℕ → ℕ} {K M : ℕ}
+    {horizontalConstant horizontalScale horizontalRatio : ℂ → ℝ}
+    (hscale_pos : ∀ ⦃s : ℂ⦄,
+      s ∈ c2ContinuedModelTerminalMiddleRegion coreCutoff K M →
+      0 < horizontalScale s)
+    (hconstant_nonneg : ∀ ⦃s : ℂ⦄,
+      s ∈ c2ContinuedModelTerminalMiddleRegion coreCutoff K M →
+      0 ≤ horizontalConstant s)
+    (hratio_nonneg : ∀ ⦃s : ℂ⦄,
+      s ∈ c2ContinuedModelTerminalMiddleRegion coreCutoff K M →
+      0 ≤ horizontalRatio s)
+    (hratio_lt_one : ∀ ⦃s : ℂ⦄,
+      s ∈ c2ContinuedModelTerminalMiddleRegion coreCutoff K M →
+      horizontalRatio s < 1)
+    (hhorizontal : ∀ ⦃s : ℂ⦄,
+      s ∈ c2ContinuedModelTerminalMiddleRegion coreCutoff K M →
+      C2ExpandedHorizontalLayerBudget
+        coreCutoff horizontalConstant horizontalScale horizontalRatio s)
+    (hdominance : ∀ ⦃s : ℂ⦄,
+      s ∈ c2ContinuedModelTerminalMiddleRegion coreCutoff K M →
+      c2CanonicalClosedScaledResidualUpper
+        K M horizontalConstant horizontalScale horizontalRatio s <
+        c2ExpandedQuartetResidualMargin s) :
+    offCriticalStripNonvanishing
+      (c2OddTailContinuedBalancingSeedBulkModel coreCutoff K M) := by
+  exact offCriticalStripNonvanishing_of_continuedModelMiddleLocal
+    (coreCutoff := coreCutoff) (K := K) (M := M)
+    (horizontalConstant := horizontalConstant)
+    (horizontalScale := horizontalScale)
+    (horizontalRatio := horizontalRatio)
+    (fun _ hs =>
+      C2CanonicalClosedScaledLocalData.of_residualDominance
+        (hscale_pos hs)
+        (hconstant_nonneg hs)
+        (hratio_nonneg hs)
+        (hratio_lt_one hs)
+        (hhorizontal hs)
+        (hdominance hs))
+
+noncomputable def
+  RiemannHypothesisTerminalData.ofContinuedModelCanonicalClosedScaledMiddleResidualPointwiseBounds
+    {coreCutoff : ℕ → ℕ} {K M : ℕ}
+    {horizontalConstant horizontalScale horizontalRatio : ℂ → ℝ}
+    (hscale_pos : ∀ ⦃s : ℂ⦄,
+      s ∈ c2ContinuedModelTerminalMiddleRegion coreCutoff K M →
+      0 < horizontalScale s)
+    (hconstant_nonneg : ∀ ⦃s : ℂ⦄,
+      s ∈ c2ContinuedModelTerminalMiddleRegion coreCutoff K M →
+      0 ≤ horizontalConstant s)
+    (hratio_nonneg : ∀ ⦃s : ℂ⦄,
+      s ∈ c2ContinuedModelTerminalMiddleRegion coreCutoff K M →
+      0 ≤ horizontalRatio s)
+    (hratio_lt_one : ∀ ⦃s : ℂ⦄,
+      s ∈ c2ContinuedModelTerminalMiddleRegion coreCutoff K M →
+      horizontalRatio s < 1)
+    (hhorizontal : ∀ ⦃s : ℂ⦄,
+      s ∈ c2ContinuedModelTerminalMiddleRegion coreCutoff K M →
+      C2ExpandedHorizontalLayerBudget
+        coreCutoff horizontalConstant horizontalScale horizontalRatio s)
+    (hdominance : ∀ ⦃s : ℂ⦄,
+      s ∈ c2ContinuedModelTerminalMiddleRegion coreCutoff K M →
+      c2CanonicalClosedScaledResidualUpper
+        K M horizontalConstant horizontalScale horizontalRatio s <
+        c2ExpandedQuartetResidualMargin s) :
+    RiemannHypothesisTerminalData :=
+  RiemannHypothesisTerminalData.ofContinuedModelMiddleLocal
+    (coreCutoff := coreCutoff) (K := K) (M := M)
+    (horizontalConstant := horizontalConstant)
+    (horizontalScale := horizontalScale)
+    (horizontalRatio := horizontalRatio)
+    (fun s hs => by
+      have hs' : s ∈ c2ContinuedModelTerminalMiddleRegion coreCutoff K M := by
+        simpa [c2ContinuedModelTerminalMiddleRegion] using hs
+      exact
+        C2CanonicalClosedScaledLocalData.of_residualDominance
+          (hscale_pos hs')
+          (hconstant_nonneg hs')
+          (hratio_nonneg hs')
+          (hratio_lt_one hs')
+          (hhorizontal hs')
+          (hdominance hs'))
+
+theorem mathlibRiemannHypothesis_of_continuedModelCanonicalClosedScaledMiddleResidualPointwiseBounds
+    {coreCutoff : ℕ → ℕ} {K M : ℕ}
+    {horizontalConstant horizontalScale horizontalRatio : ℂ → ℝ}
+    (hscale_pos : ∀ ⦃s : ℂ⦄,
+      s ∈ c2ContinuedModelTerminalMiddleRegion coreCutoff K M →
+      0 < horizontalScale s)
+    (hconstant_nonneg : ∀ ⦃s : ℂ⦄,
+      s ∈ c2ContinuedModelTerminalMiddleRegion coreCutoff K M →
+      0 ≤ horizontalConstant s)
+    (hratio_nonneg : ∀ ⦃s : ℂ⦄,
+      s ∈ c2ContinuedModelTerminalMiddleRegion coreCutoff K M →
+      0 ≤ horizontalRatio s)
+    (hratio_lt_one : ∀ ⦃s : ℂ⦄,
+      s ∈ c2ContinuedModelTerminalMiddleRegion coreCutoff K M →
+      horizontalRatio s < 1)
+    (hhorizontal : ∀ ⦃s : ℂ⦄,
+      s ∈ c2ContinuedModelTerminalMiddleRegion coreCutoff K M →
+      C2ExpandedHorizontalLayerBudget
+        coreCutoff horizontalConstant horizontalScale horizontalRatio s)
+    (hdominance : ∀ ⦃s : ℂ⦄,
+      s ∈ c2ContinuedModelTerminalMiddleRegion coreCutoff K M →
+      c2CanonicalClosedScaledResidualUpper
+        K M horizontalConstant horizontalScale horizontalRatio s <
+        c2ExpandedQuartetResidualMargin s) :
+    RiemannHypothesis := by
+  exact mathlibRiemannHypothesis_of_continuedModelMiddleLocal
+    (coreCutoff := coreCutoff) (K := K) (M := M)
+    (horizontalConstant := horizontalConstant)
+    (horizontalScale := horizontalScale)
+    (horizontalRatio := horizontalRatio)
+    (fun s hs => by
+      have hs' : s ∈ c2ContinuedModelTerminalMiddleRegion coreCutoff K M := by
+        simpa [c2ContinuedModelTerminalMiddleRegion] using hs
+      exact
+        C2CanonicalClosedScaledLocalData.of_residualDominance
+          (hscale_pos hs')
+          (hconstant_nonneg hs')
+          (hratio_nonneg hs')
+          (hratio_lt_one hs')
+          (hhorizontal hs')
+          (hdominance hs'))
+
+theorem mathlibRiemannHypothesis_of_continuedModelCanonicalClosedScaledMiddleResidualAnalyticBounds
+    {coreCutoff : ℕ → ℕ} {K M : ℕ}
+    {horizontalConstant horizontalScale horizontalRatio : ℂ → ℝ}
+    (hscale_pos : ∀ ⦃s : ℂ⦄,
+      s ∈ c2ContinuedModelTerminalMiddleRegion coreCutoff K M →
+      0 < horizontalScale s)
+    (hconstant_nonneg : ∀ ⦃s : ℂ⦄,
+      s ∈ c2ContinuedModelTerminalMiddleRegion coreCutoff K M →
+      0 ≤ horizontalConstant s)
+    (hratio_nonneg : ∀ ⦃s : ℂ⦄,
+      s ∈ c2ContinuedModelTerminalMiddleRegion coreCutoff K M →
+      0 ≤ horizontalRatio s)
+    (hratio_lt_one : ∀ ⦃s : ℂ⦄,
+      s ∈ c2ContinuedModelTerminalMiddleRegion coreCutoff K M →
+      horizontalRatio s < 1)
+    (hhorizontal : ∀ ⦃s : ℂ⦄,
+      s ∈ c2ContinuedModelTerminalMiddleRegion coreCutoff K M →
+      C2ExpandedHorizontalLayerBudget
+        coreCutoff horizontalConstant horizontalScale horizontalRatio s)
+    (hdominance : ∀ ⦃s : ℂ⦄,
+      s ∈ c2ContinuedModelTerminalMiddleRegion coreCutoff K M →
+      c2CanonicalClosedScaledResidualUpper
+        K M horizontalConstant horizontalScale horizontalRatio s <
+        c2AnalyticBulkAllowance s - c2ExpandedQuartetResidualReserve s) :
+    RiemannHypothesis := by
+  exact mathlibRiemannHypothesis_of_continuedModelMiddleLocal
+    (coreCutoff := coreCutoff) (K := K) (M := M)
+    (horizontalConstant := horizontalConstant)
+    (horizontalScale := horizontalScale)
+    (horizontalRatio := horizontalRatio)
+    (fun s hs => by
+      have hs' : s ∈ c2ContinuedModelTerminalMiddleRegion coreCutoff K M := by
+        simpa [c2ContinuedModelTerminalMiddleRegion] using hs
+      exact
+        C2CanonicalClosedScaledLocalData.of_analyticResidualDominance
+          hs'.1
+          (hscale_pos hs')
+          (hconstant_nonneg hs')
+          (hratio_nonneg hs')
+          (hratio_lt_one hs')
+          (hhorizontal hs')
+          (hdominance hs'))
+
 theorem mathlibRiemannHypothesis_of_continuationAndMiddleLocal
     {coreCutoff : ℕ → ℕ} {K M : ℕ}
     {horizontalConstant horizontalScale horizontalRatio : ℂ → ℝ}
@@ -3908,5 +4253,283 @@ theorem
         (hratio_lt_one hs)
         (hhorizontal hs)
         (hdominance hs))
+
+/-! ### Concrete constant scaling witnesses for the terminal middle region
+
+The next block instantiates the horizontal-scaling triple
+`(horizontalConstant, horizontalScale, horizontalRatio)` by constant functions
+parametrized by `(C, R) : ℝ × ℝ` with `0 ≤ C`, `0 ≤ R`, `R < 1`. With this
+choice the four pointwise positivity / range hypotheses required by
+`mathlibRiemannHypothesis_of_continuedModelCanonicalClosedScaledMiddleResidualPointwiseBounds`
+become definitional, so the user is left only with the two genuinely analytic
+inputs (horizontal layer budget and residual dominance) that the route notes
+must supply. No new mathematical content is introduced here: this is a thin
+packaging of the existing terminal endpoint with constant scaling. -/
+
+/-- Constant `horizontalConstant ≡ C`. -/
+def c2ContinuedModelConstantHorizontalConstant (C : ℝ) : ℂ → ℝ := fun _ => C
+
+/-- Constant `horizontalScale ≡ 1`. -/
+def c2ContinuedModelConstantHorizontalScale : ℂ → ℝ := fun _ => 1
+
+/-- Constant `horizontalRatio ≡ R`. -/
+def c2ContinuedModelConstantHorizontalRatio (R : ℝ) : ℂ → ℝ := fun _ => R
+
+theorem c2ContinuedModelConstantHorizontalScale_pos
+    (s : ℂ) : 0 < c2ContinuedModelConstantHorizontalScale s := by
+  unfold c2ContinuedModelConstantHorizontalScale; exact one_pos
+
+theorem c2ContinuedModelConstantHorizontalConstant_nonneg
+    {C : ℝ} (hC : 0 ≤ C) (s : ℂ) :
+    0 ≤ c2ContinuedModelConstantHorizontalConstant C s := by
+  unfold c2ContinuedModelConstantHorizontalConstant; exact hC
+
+theorem c2ContinuedModelConstantHorizontalRatio_nonneg
+    {R : ℝ} (hR : 0 ≤ R) (s : ℂ) :
+    0 ≤ c2ContinuedModelConstantHorizontalRatio R s := by
+  unfold c2ContinuedModelConstantHorizontalRatio; exact hR
+
+theorem c2ContinuedModelConstantHorizontalRatio_lt_one
+    {R : ℝ} (hR : R < 1) (s : ℂ) :
+    c2ContinuedModelConstantHorizontalRatio R s < 1 := by
+  unfold c2ContinuedModelConstantHorizontalRatio; exact hR
+
+/--
+Adapter: assuming the two genuinely analytic inputs (horizontal layer budget
+and canonical scaled residual dominance) over the terminal middle region for
+the constant scaling triple `(C, 1, R)`, conclude
+`RiemannHypothesis`. The four positivity / range obligations are discharged
+internally from the constant choice. -/
+theorem mathlibRiemannHypothesis_of_continuedModelConstantScaledMiddleResidualPointwiseBounds
+    {coreCutoff : ℕ → ℕ} {K M : ℕ} {C R : ℝ}
+    (hC_nonneg : 0 ≤ C) (hR_nonneg : 0 ≤ R) (hR_lt_one : R < 1)
+    (hhorizontal : ∀ ⦃s : ℂ⦄,
+      s ∈ c2ContinuedModelTerminalMiddleRegion coreCutoff K M →
+      C2ExpandedHorizontalLayerBudget
+        coreCutoff
+        (c2ContinuedModelConstantHorizontalConstant C)
+        c2ContinuedModelConstantHorizontalScale
+        (c2ContinuedModelConstantHorizontalRatio R) s)
+    (hdominance : ∀ ⦃s : ℂ⦄,
+      s ∈ c2ContinuedModelTerminalMiddleRegion coreCutoff K M →
+      c2CanonicalClosedScaledResidualUpper K M
+          (c2ContinuedModelConstantHorizontalConstant C)
+          c2ContinuedModelConstantHorizontalScale
+          (c2ContinuedModelConstantHorizontalRatio R) s <
+        c2ExpandedQuartetResidualMargin s) :
+    RiemannHypothesis :=
+  mathlibRiemannHypothesis_of_continuedModelCanonicalClosedScaledMiddleResidualPointwiseBounds
+    (coreCutoff := coreCutoff) (K := K) (M := M)
+    (horizontalConstant := c2ContinuedModelConstantHorizontalConstant C)
+    (horizontalScale := c2ContinuedModelConstantHorizontalScale)
+    (horizontalRatio := c2ContinuedModelConstantHorizontalRatio R)
+    (fun s _ => c2ContinuedModelConstantHorizontalScale_pos s)
+    (fun s _ => c2ContinuedModelConstantHorizontalConstant_nonneg hC_nonneg s)
+    (fun s _ => c2ContinuedModelConstantHorizontalRatio_nonneg hR_nonneg s)
+    (fun s _ => c2ContinuedModelConstantHorizontalRatio_lt_one hR_lt_one s)
+    hhorizontal hdominance
+
+/--
+Same adapter as above, but expressed against the analytic residual envelope
+`c2AnalyticBulkAllowance s - c2ExpandedQuartetResidualReserve s`, which equals
+`c2ExpandedQuartetResidualMargin s` on the off-critical strip. -/
+theorem mathlibRiemannHypothesis_of_continuedModelConstantScaledMiddleResidualAnalyticBounds
+    {coreCutoff : ℕ → ℕ} {K M : ℕ} {C R : ℝ}
+    (hC_nonneg : 0 ≤ C) (hR_nonneg : 0 ≤ R) (hR_lt_one : R < 1)
+    (hhorizontal : ∀ ⦃s : ℂ⦄,
+      s ∈ c2ContinuedModelTerminalMiddleRegion coreCutoff K M →
+      C2ExpandedHorizontalLayerBudget
+        coreCutoff
+        (c2ContinuedModelConstantHorizontalConstant C)
+        c2ContinuedModelConstantHorizontalScale
+        (c2ContinuedModelConstantHorizontalRatio R) s)
+    (hdominance : ∀ ⦃s : ℂ⦄,
+      s ∈ c2ContinuedModelTerminalMiddleRegion coreCutoff K M →
+      c2CanonicalClosedScaledResidualUpper K M
+          (c2ContinuedModelConstantHorizontalConstant C)
+          c2ContinuedModelConstantHorizontalScale
+          (c2ContinuedModelConstantHorizontalRatio R) s <
+        c2AnalyticBulkAllowance s - c2ExpandedQuartetResidualReserve s) :
+    RiemannHypothesis :=
+  mathlibRiemannHypothesis_of_continuedModelCanonicalClosedScaledMiddleResidualAnalyticBounds
+    (coreCutoff := coreCutoff) (K := K) (M := M)
+    (horizontalConstant := c2ContinuedModelConstantHorizontalConstant C)
+    (horizontalScale := c2ContinuedModelConstantHorizontalScale)
+    (horizontalRatio := c2ContinuedModelConstantHorizontalRatio R)
+    (fun s _ => c2ContinuedModelConstantHorizontalScale_pos s)
+    (fun s _ => c2ContinuedModelConstantHorizontalConstant_nonneg hC_nonneg s)
+    (fun s _ => c2ContinuedModelConstantHorizontalRatio_nonneg hR_nonneg s)
+    (fun s _ => c2ContinuedModelConstantHorizontalRatio_lt_one hR_lt_one s)
+    hhorizontal hdominance
+
+/-! ### Concrete s-dependent witnesses with the trivial odd-core cutoff
+
+This block specializes the terminal middle-region adapter with the trivial
+odd-core cutoff `coreCutoff ≡ 0` and the natural s-dependent horizontal
+scaling triple
+
+  * `horizontalConstant s := 2 * ‖q s‖^2 * ‖oddDirichletChannel s‖`,
+  * `horizontalScale s    := 1`,
+  * `horizontalRatio s    := ‖q s‖`.
+
+With this choice, the horizontal layer defect simplifies to
+`-2 q(s)^(j+2) · oddDirichletChannel s` and the budget
+`‖defect‖ ≤ (horizontalConstant/horizontalScale) · horizontalRatio^j`
+becomes a definitional equality. Therefore the horizontal layer budget over
+the entire off-critical strip can be closed concretely, leaving only the
+residual dominance over the terminal middle region as the genuinely analytic
+input. -/
+
+/-- Trivial odd-core cutoff: keep no odd-core terms. -/
+def c2ContinuedModelTrivialCoreCutoff : ℕ → ℕ := fun _ => 0
+
+/-- Concrete s-dependent horizontal constant `2 · ‖q s‖² · ‖oddDirichletChannel s‖`
+matching the trivial odd-core cutoff. -/
+noncomputable def c2ContinuedModelOddHorizontalConstant : ℂ → ℝ :=
+  fun s => 2 * ‖q s‖ ^ 2 * ‖oddDirichletChannel s‖
+
+/-- Concrete horizontal scale `≡ 1`. -/
+noncomputable def c2ContinuedModelOddHorizontalScale : ℂ → ℝ := fun _ => 1
+
+/-- Concrete s-dependent horizontal ratio `‖q s‖`. -/
+noncomputable def c2ContinuedModelOddHorizontalRatio : ℂ → ℝ := fun s => ‖q s‖
+
+theorem c2ContinuedModelOddHorizontalScale_pos
+    (s : ℂ) : 0 < c2ContinuedModelOddHorizontalScale s := by
+  unfold c2ContinuedModelOddHorizontalScale; exact one_pos
+
+theorem c2ContinuedModelOddHorizontalConstant_nonneg
+    (s : ℂ) : 0 ≤ c2ContinuedModelOddHorizontalConstant s := by
+  unfold c2ContinuedModelOddHorizontalConstant
+  have h1 : 0 ≤ (2 : ℝ) := by norm_num
+  have h2 : 0 ≤ ‖q s‖ ^ 2 := sq_nonneg _
+  have h3 : 0 ≤ ‖oddDirichletChannel s‖ := norm_nonneg _
+  positivity
+
+theorem c2ContinuedModelOddHorizontalRatio_nonneg
+    (s : ℂ) : 0 ≤ c2ContinuedModelOddHorizontalRatio s := by
+  unfold c2ContinuedModelOddHorizontalRatio; exact norm_nonneg _
+
+theorem c2ContinuedModelOddHorizontalRatio_lt_one_of_offCriticalStrip
+    {s : ℂ} (hs : offCriticalStrip s) :
+    c2ContinuedModelOddHorizontalRatio s < 1 := by
+  unfold c2ContinuedModelOddHorizontalRatio
+  exact q_norm_lt_one_of_offCriticalStrip s hs
+
+/-- Closed-form value of the trivial-cutoff odd truncation error:
+`rectangularOddCoreSum s 0 - oddDirichletChannel s = -oddDirichletChannel s`. -/
+theorem c2ConcreteOddTruncationError_trivial_eq (s : ℂ) (j : ℕ) :
+    c2ConcreteOddTruncationError c2ContinuedModelTrivialCoreCutoff s j =
+      - oddDirichletChannel s := by
+  unfold c2ConcreteOddTruncationError c2OddTruncationError
+    c2ContinuedModelTrivialCoreCutoff rectangularOddCoreSum oddCoresUpTo
+  -- `Finset.range 1 = {0}`; filtering by `Odd` removes `0`.
+  have hfilt : ((Finset.range (0 + 1)).filter Odd) = (∅ : Finset ℕ) := by
+    ext m
+    simp only [Finset.mem_filter, Finset.mem_range, Finset.notMem_empty,
+      iff_false, not_and]
+    intro hm
+    interval_cases m
+    decide
+  rw [hfilt]
+  simp
+
+/-- Pointwise norm of the trivial-cutoff odd truncation error. -/
+theorem c2ConcreteOddTruncationError_trivial_norm (s : ℂ) (j : ℕ) :
+    ‖c2ConcreteOddTruncationError c2ContinuedModelTrivialCoreCutoff s j‖ =
+      ‖oddDirichletChannel s‖ := by
+  rw [c2ConcreteOddTruncationError_trivial_eq]; exact norm_neg _
+
+/--
+Concrete closure of the horizontal layer budget for the trivial odd-core
+cutoff and the s-dependent scaling triple `(2 ‖q s‖² ‖oddDirichletChannel s‖,
+1, ‖q s‖)`. The budget bound holds for every `s : ℂ` as an equality.
+-/
+theorem c2ContinuedModelOddHorizontalLayerBudget_holds (s : ℂ) :
+    C2ExpandedHorizontalLayerBudget
+      c2ContinuedModelTrivialCoreCutoff
+      c2ContinuedModelOddHorizontalConstant
+      c2ContinuedModelOddHorizontalScale
+      c2ContinuedModelOddHorizontalRatio s := by
+  refine
+    { layer_bound := ?_ }
+  intro j
+  -- Apply the route lemma with the trivial truncation-error upper.
+  refine
+    c2ConcreteOddHorizontalLayer_bound_of_truncation_bound
+      (coreCutoff := c2ContinuedModelTrivialCoreCutoff)
+      (oddTruncationUpper := fun s _ => ‖oddDirichletChannel s‖)
+      (horizontalConstant := c2ContinuedModelOddHorizontalConstant)
+      (horizontalScale := c2ContinuedModelOddHorizontalScale)
+      (horizontalRatio := c2ContinuedModelOddHorizontalRatio)
+      (s := s)
+      ?_ ?_ j
+  · intro k
+    rw [c2ConcreteOddTruncationError_trivial_norm]
+  · intro k
+    -- RHS expands to `2 * ‖q s‖^(k+2) * ‖oddDirichletChannel s‖`; LHS is equal.
+    unfold c2ContinuedModelOddHorizontalConstant
+      c2ContinuedModelOddHorizontalScale c2ContinuedModelOddHorizontalRatio
+    have hpow : ‖q s‖ ^ (k + 2) = ‖q s‖ ^ 2 * ‖q s‖ ^ k := by
+      rw [pow_add, mul_comm]
+    rw [hpow]
+    ring_nf
+    exact le_refl _
+
+/--
+Terminal RH adapter with the concrete s-dependent witnesses: the only
+remaining hypothesis is the residual dominance on the terminal middle region
+for the trivial odd-core cutoff and the scaling triple
+`(2 ‖q s‖² ‖oddDirichletChannel s‖, 1, ‖q s‖)`. All other hypotheses of the
+canonical-closed-scaled adapter are discharged internally.
+-/
+theorem mathlibRiemannHypothesis_of_continuedModelOddScaledMiddleResidualPointwiseBounds
+    {K M : ℕ}
+    (hdominance : ∀ ⦃s : ℂ⦄,
+      s ∈ c2ContinuedModelTerminalMiddleRegion
+            c2ContinuedModelTrivialCoreCutoff K M →
+      c2CanonicalClosedScaledResidualUpper K M
+          c2ContinuedModelOddHorizontalConstant
+          c2ContinuedModelOddHorizontalScale
+          c2ContinuedModelOddHorizontalRatio s <
+        c2ExpandedQuartetResidualMargin s) :
+    RiemannHypothesis :=
+  mathlibRiemannHypothesis_of_continuedModelCanonicalClosedScaledMiddleResidualPointwiseBounds
+    (coreCutoff := c2ContinuedModelTrivialCoreCutoff) (K := K) (M := M)
+    (horizontalConstant := c2ContinuedModelOddHorizontalConstant)
+    (horizontalScale := c2ContinuedModelOddHorizontalScale)
+    (horizontalRatio := c2ContinuedModelOddHorizontalRatio)
+    (fun s _ => c2ContinuedModelOddHorizontalScale_pos s)
+    (fun s _ => c2ContinuedModelOddHorizontalConstant_nonneg s)
+    (fun s _ => c2ContinuedModelOddHorizontalRatio_nonneg s)
+    (fun _ hs => c2ContinuedModelOddHorizontalRatio_lt_one_of_offCriticalStrip hs.1)
+    (fun _ _ => c2ContinuedModelOddHorizontalLayerBudget_holds _)
+    hdominance
+
+/--
+Same adapter as above, but expressed against the analytic residual envelope
+`c2AnalyticBulkAllowance s - c2ExpandedQuartetResidualReserve s`. -/
+theorem mathlibRiemannHypothesis_of_continuedModelOddScaledMiddleResidualAnalyticBounds
+    {K M : ℕ}
+    (hdominance : ∀ ⦃s : ℂ⦄,
+      s ∈ c2ContinuedModelTerminalMiddleRegion
+            c2ContinuedModelTrivialCoreCutoff K M →
+      c2CanonicalClosedScaledResidualUpper K M
+          c2ContinuedModelOddHorizontalConstant
+          c2ContinuedModelOddHorizontalScale
+          c2ContinuedModelOddHorizontalRatio s <
+        c2AnalyticBulkAllowance s - c2ExpandedQuartetResidualReserve s) :
+    RiemannHypothesis :=
+  mathlibRiemannHypothesis_of_continuedModelCanonicalClosedScaledMiddleResidualAnalyticBounds
+    (coreCutoff := c2ContinuedModelTrivialCoreCutoff) (K := K) (M := M)
+    (horizontalConstant := c2ContinuedModelOddHorizontalConstant)
+    (horizontalScale := c2ContinuedModelOddHorizontalScale)
+    (horizontalRatio := c2ContinuedModelOddHorizontalRatio)
+    (fun s _ => c2ContinuedModelOddHorizontalScale_pos s)
+    (fun s _ => c2ContinuedModelOddHorizontalConstant_nonneg s)
+    (fun s _ => c2ContinuedModelOddHorizontalRatio_nonneg s)
+    (fun _ hs => c2ContinuedModelOddHorizontalRatio_lt_one_of_offCriticalStrip hs.1)
+    (fun _ _ => c2ContinuedModelOddHorizontalLayerBudget_holds _)
+    hdominance
 
 end C2

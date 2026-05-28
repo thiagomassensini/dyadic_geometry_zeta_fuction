@@ -136,7 +136,9 @@ near-critical-zero regime
 
 ### Role
 
-Packages the analytic continuation and identity bridge for the complete/genuine C2 operator.
+Packages the analytic continuation and identity bridge for the complete/genuine
+C2 operator.  This remains an audit interface; the preferred terminal assembly
+now obtains near-axis data directly from the continued C2 model.
 
 ## 5. Near-critical-zero layer
 
@@ -145,9 +147,12 @@ Packages the analytic continuation and identity bridge for the complete/genuine 
 - `NearCriticalZeroNonvanishing`
 - `NearCriticalZeroCertificate.ofContinuation`
 - `NearCriticalZeroCertificate.ofLeibnizJet`
+- `C2.PeerReview.ContinuedBulkNearCriticalZeroData_canonical`
 
 ### Internal Lean declarations
 
+- `C2OddTailContinuedBalancingSeedBulkModelNearAxisData.ofContinuedModel`
+- `c2OddTailContinuedBalancingSeedBulkModel_eventually_ne_zero`
 - `eventually_ne_zero_of_continuation`
 - `GenuineFInfiniteNearAxisData.of_continuation`
 - `NearAxisCertificate.of_eventually_ne_zero`
@@ -192,6 +197,7 @@ The public tree should expose this layer as resolvent non-cancellation, dominant
 ### Representative internal endpoint declarations
 
 - `mathlibRiemannHypothesis_of_expandedScalarMiddleRegion`
+- `mathlibRiemannHypothesis_of_continuedModelMiddleLocal`
 - `mathlibRiemannHypothesis_of_continuationAndExpandedScalarMiddleRegionWithBounds`
 - `mathlibRiemannHypothesis_of_oddTailContinuedBalancingSeedBulkModel_quartetConcreteCover`
 - `c2ResolventNonCancellationFiniteCriterion_of_budgetBounds`
@@ -201,6 +207,9 @@ The public tree should expose this layer as resolvent non-cancellation, dominant
 - `mathlibRiemannHypothesis_of_continuationAndExplicitScalarExactZetaMiddleRegion`
 - `mathlibRiemannHypothesis_of_continuationAndCanonicalClosedScaledMiddlePointwiseBounds`
 - `mathlibRiemannHypothesis_of_continuationAndCanonicalClosedScaledMiddleResidualPointwiseBounds`
+- `mathlibRiemannHypothesis_of_continuedModelCanonicalClosedScaledMiddlePointwiseBounds`
+- `mathlibRiemannHypothesis_of_continuedModelCanonicalClosedScaledMiddleResidualPointwiseBounds`
+- `mathlibRiemannHypothesis_of_continuedModelCanonicalClosedScaledMiddleResidualAnalyticBounds`
 - `mathlibRiemannHypothesis_of_canonicalClosedScaledResidualBudgetMiddleRegionData`
 
 ### Role
@@ -222,6 +231,11 @@ The full bounds/certificates/witness inventory for this layer is listed in
 - `RiemannHypothesisTerminalData`
 - `offCriticalStripNonvanishing_of_terminalData`
 - `mathlibRiemannHypothesis_of_terminalData`
+- `RiemannHypothesisTerminalData.ofContinuedModelMiddleLocal`
+- `mathlibRiemannHypothesis_of_continuedModelMiddleLocal`
+- `c2ContinuedModelTerminalMiddleRegion`
+- `RiemannHypothesisTerminalData.ofContinuedModelCanonicalClosedScaledMiddleResidualPointwiseBounds`
+- `mathlibRiemannHypothesis_of_continuedModelCanonicalClosedScaledMiddleResidualPointwiseBounds`
 - `RiemannHypothesisTerminalData.ofExplicitScalarExactZetaMiddleRegion`
 - `RiemannHypothesisTerminalData.ofContinuationAndExplicitScalarExactZetaMiddleRegion`
 - `mathlibRiemannHypothesis_of_genuineFInfiniteNearAxisAndExplicitScalarExactZetaMiddleRegion`
@@ -229,7 +243,10 @@ The full bounds/certificates/witness inventory for this layer is listed in
 
 ### Role
 
-Final packaged route: continuation + near-critical-zero data + middle-region data + edge handling imply the official mathlib `RiemannHypothesis`.
+Final packaged route: canonical continued-model near-critical-zero data,
+middle-region data, and empty-edge handling imply the official mathlib
+`RiemannHypothesis`.  Continuation-based terminal constructors remain available
+as audit variants.
 
 ## 8. Recommended paper theorem order
 

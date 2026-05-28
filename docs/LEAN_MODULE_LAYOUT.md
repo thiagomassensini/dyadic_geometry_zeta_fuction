@@ -23,7 +23,7 @@ LeanC2/Analytic/GenuineBulkConcrete/
 | `LeanC2.Analytic.GenuineBulkConcrete.ConcreteEstimates` | Concrete regional estimates, scalar reductions, quartet estimates, expanded exact-zeta dominance and canonical scalar constants. |
 | `LeanC2.Analytic.GenuineBulkConcrete.ExpandedScalar` | Expanded scalar cover, local scalar-bulk packages, canonical expanded-scalar middle-region data. |
 | `LeanC2.Analytic.GenuineBulkConcrete.ComponentRoutes` | Component truncation and resolvent-note middle-region packages. |
-| `LeanC2.Analytic.GenuineBulkConcrete.Terminal` | Canonical closed/scaled middle data and the terminal certificate package ending in `RiemannHypothesis`. |
+| `LeanC2.Analytic.GenuineBulkConcrete.Terminal` | Canonical closed/scaled middle data, continued-model middle-region endpoints, and the terminal certificate package ending in `RiemannHypothesis`. |
 | `LeanC2.Analytic.GenuineBulkConcrete.ContinuationRoutes` | Continuation-driven middle-region constructors and genuine-central resolvent non-cancellation packages. |
 | `LeanC2.Analytic.GenuineBulkConcrete.Endpoints` | Final endpoint wrappers and explicit cutoff/existence corollaries. |
 
@@ -45,6 +45,9 @@ It contains:
 C2.RiemannHypothesisTerminalData
 C2.offCriticalStripNonvanishing_of_terminalData
 C2.mathlibRiemannHypothesis_of_terminalData
+C2.c2ContinuedModelTerminalMiddleRegion
+C2.RiemannHypothesisTerminalData.ofContinuedModelCanonicalClosedScaledMiddleResidualPointwiseBounds
+C2.mathlibRiemannHypothesis_of_continuedModelCanonicalClosedScaledMiddleResidualPointwiseBounds
 ```
 
 External reviewers can still use the facade module if they want the complete
@@ -61,4 +64,3 @@ The CI command remains unchanged:
 ```bash
 lake build LeanC2.Analytic.GenuineBulkConcrete LeanC2.PeerReview LeanC2
 ```
-

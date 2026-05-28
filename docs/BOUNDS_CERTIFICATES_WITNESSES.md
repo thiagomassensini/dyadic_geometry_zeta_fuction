@@ -98,6 +98,7 @@ feed the terminal route.
 | `CanonicalClosedScaledResidualBudgetLocalData` | `C2CanonicalClosedScaledResidualBudgetLocalData` |
 | `CanonicalClosedScaledResidualBudgetMiddleRegionData` | `C2CanonicalClosedScaledResidualBudgetMiddleRegionData` |
 | `CanonicalClosedScaledMiddleLocalData` | `C2CanonicalClosedScaledMiddleLocalData` |
+| `ContinuedModelTerminalMiddleRegion` | `c2ContinuedModelTerminalMiddleRegion` |
 
 Role: decomposes the dominant block, truncation error, vertical budgets, and
 residual budgets used by the resolvent non-cancellation criterion.
@@ -176,8 +177,15 @@ inequality.
 | --- | --- |
 | `RiemannHypothesisTerminalCertificate` | `RiemannHypothesisTerminalData` |
 | `RiemannHypothesis_of_terminalCertificate` | `mathlibRiemannHypothesis_of_terminalData` |
+| `RiemannHypothesis_of_continuedModelMiddleLocal` | `mathlibRiemannHypothesis_of_continuedModelMiddleLocal` |
+| `TerminalCertificate_of_continuedModelCanonicalClosedScaledMiddleResidualPointwiseBounds` | `RiemannHypothesisTerminalData.ofContinuedModelCanonicalClosedScaledMiddleResidualPointwiseBounds` |
+| `RiemannHypothesis_of_continuedModelCanonicalClosedScaledMiddlePointwiseBounds` | `mathlibRiemannHypothesis_of_continuedModelCanonicalClosedScaledMiddlePointwiseBounds` |
+| `RiemannHypothesis_of_continuedModelCanonicalClosedScaledMiddleResidualPointwiseBounds` | `mathlibRiemannHypothesis_of_continuedModelCanonicalClosedScaledMiddleResidualPointwiseBounds` |
+| `RiemannHypothesis_of_continuedModelCanonicalClosedScaledMiddleResidualAnalyticBounds` | `mathlibRiemannHypothesis_of_continuedModelCanonicalClosedScaledMiddleResidualAnalyticBounds` |
 
-Role: final certificate route to mathlib's `RiemannHypothesis`.
+Role: final certificate route to mathlib's `RiemannHypothesis`, plus the
+continued-model middle-region endpoints that reduce the remaining certificate
+target to explicit pointwise bounds.
 
 ## Verification command
 

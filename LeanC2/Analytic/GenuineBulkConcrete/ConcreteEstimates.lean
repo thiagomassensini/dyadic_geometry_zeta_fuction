@@ -6895,6 +6895,80 @@ theorem c2CanonicalClosedScaledResidualUpper_eq_linear_of_offCriticalStrip
   rw [c2CanonicalClosedScaledResidualUpper_eq_expanded]
   exact c2CanonicalClosedScaledResidualExpanded_eq_linear_of_offCriticalStrip hs
 
+theorem scaledVerticalDepthTail_le_c2CanonicalClosedScaledResidualUpper_of_offCriticalStrip
+    {K M : ℕ}
+    {horizontalConstant horizontalScale horizontalRatio : ℂ → ℝ}
+    {s : ℂ} (hs : offCriticalStrip s)
+    (hscale : 0 < horizontalScale s)
+    (hconstant : 0 ≤ horizontalConstant s)
+    (hratio_lt_one : horizontalRatio s < 1) :
+    verticalDepthTailUpper s * ((1 + ‖q s‖) * (1 - ‖q s‖)⁻¹) ≤
+      c2CanonicalClosedScaledResidualUpper
+        K M horizontalConstant horizontalScale horizontalRatio s := by
+  have hq_lt : ‖q s‖ < 1 := q_norm_lt_one_of_offCriticalStrip s hs
+  have hgap_nonneg : 0 ≤ 1 - ‖q s‖ := by
+    linarith [norm_nonneg (q s), hq_lt]
+  have hcoeff_nonneg : 0 ≤ (1 + ‖q s‖) * (1 - ‖q s‖)⁻¹ := by
+    exact mul_nonneg (by positivity) (inv_nonneg.mpr hgap_nonneg)
+  have hvertical_tail_le :
+      verticalDepthTailUpper s ≤
+        c2ContinuedVerticalResidualClosedUpper K M
+          (c2RectangularGenuineDirectBracketUpper K M)
+          c2ContinuedCentralExactUpper s := by
+    unfold c2ContinuedVerticalResidualClosedUpper
+    have hrect_nonneg : 0 ≤ c2RectangularGenuineDirectBracketUpper K M s := by
+      unfold c2RectangularGenuineDirectBracketUpper
+      positivity
+    have hcent_nonneg : 0 ≤ c2ContinuedCentralExactUpper s := by
+      unfold c2ContinuedCentralExactUpper
+      positivity
+    nlinarith
+  rw [c2CanonicalClosedScaledResidualUpper_eq_linear_of_offCriticalStrip hs]
+  unfold c2CanonicalClosedScaledResidualLinearUpper
+  have hfirst :
+      verticalDepthTailUpper s * ((1 + ‖q s‖) * (1 - ‖q s‖)⁻¹) ≤
+        c2ContinuedVerticalResidualClosedUpper K M
+          (c2RectangularGenuineDirectBracketUpper K M)
+          c2ContinuedCentralExactUpper s *
+        ((1 + ‖q s‖) * (1 - ‖q s‖)⁻¹) :=
+    mul_le_mul_of_nonneg_right hvertical_tail_le hcoeff_nonneg
+  have hhorizontal_nonneg :
+      0 ≤ c2HorizontalRegularizedUpper
+          horizontalConstant horizontalScale horizontalRatio s :=
+    c2HorizontalRegularizedUpper_nonneg_of_pos hscale hconstant hratio_lt_one
+  have hcoeff2_nonneg : 0 ≤ 2 * (1 - ‖q s‖)⁻¹ := by
+    exact mul_nonneg (by norm_num) (inv_nonneg.mpr hgap_nonneg)
+  have hcutoff_nonneg : 0 ≤ c2CanonicalClosedCutoffConstant K M s := by
+    unfold c2CanonicalClosedCutoffConstant c2ContinuedCutoffClosedUpper
+      c2RectangularGenuineDirectBracketUpper c2ContinuedCentralExactUpper
+    positivity
+  have hrest_nonneg :
+      0 ≤ c2HorizontalRegularizedUpper
+          horizontalConstant horizontalScale horizontalRatio s *
+        (2 * (1 - ‖q s‖)⁻¹) +
+        c2CanonicalClosedCutoffConstant K M s := by
+    exact add_nonneg (mul_nonneg hhorizontal_nonneg hcoeff2_nonneg)
+      hcutoff_nonneg
+  nlinarith
+
+theorem scaledVerticalDepthTail_lt_residualMargin_of_canonicalResidualDominance
+    {K M : ℕ}
+    {horizontalConstant horizontalScale horizontalRatio : ℂ → ℝ}
+    {s : ℂ} (hs : offCriticalStrip s)
+    (hscale : 0 < horizontalScale s)
+    (hconstant : 0 ≤ horizontalConstant s)
+    (hratio_lt_one : horizontalRatio s < 1)
+    (hdominance :
+      c2CanonicalClosedScaledResidualUpper
+          K M horizontalConstant horizontalScale horizontalRatio s <
+        c2ExpandedQuartetResidualMargin s) :
+    verticalDepthTailUpper s * ((1 + ‖q s‖) * (1 - ‖q s‖)⁻¹) <
+      c2ExpandedQuartetResidualMargin s :=
+  lt_of_le_of_lt
+    (scaledVerticalDepthTail_le_c2CanonicalClosedScaledResidualUpper_of_offCriticalStrip
+      hs hscale hconstant hratio_lt_one)
+    hdominance
+
 theorem c2CanonicalClosedScaledResidualUpper_le_majorant_of_offCriticalStrip
     {K M : ℕ}
     {horizontalConstant horizontalScale horizontalRatio : ℂ → ℝ}

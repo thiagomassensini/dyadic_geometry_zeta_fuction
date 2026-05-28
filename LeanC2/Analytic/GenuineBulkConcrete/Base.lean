@@ -6,6 +6,8 @@ import LeanC2.Route.BulkQuartet
 
 namespace C2
 
+open scoped Topology
+
 /-!
 Adapters from the concrete C2 bulk packages to the `genuineFInfinite`-pinned bulk
 interface.
@@ -1457,6 +1459,71 @@ noncomputable def C2OddTailContinuedBalancingSeedBulkModelNearAxisData.ofNearAxi
         intro rho s hrho hs
         simpa [hF] using near.near_axis.nonvanishing hrho hs
     }
+
+theorem c2OddTailContinuedBalancingSeedBulkModel_analyticOnNhd_punctured
+    (coreCutoff : ℕ → ℕ) (K M : ℕ) :
+    AnalyticOnNhd ℂ
+      (c2OddTailContinuedBalancingSeedBulkModel coreCutoff K M)
+      puncturedOpenRightHalfPlane := by
+  refine continuedCentralOddChannel_analyticOnNhd_punctured.congr
+    puncturedOpenRightHalfPlane_isOpen ?_
+  intro s hs
+  symm
+  simpa [c2OddTailContinuedBalancingSeedBulkModel] using
+    c2OddTailContinuedBalancingSeedBulkModel_eq_continuedCentral_of_re_pos
+      coreCutoff K M (s := s) hs.1
+
+theorem c2OddTailContinuedBalancingSeedBulkModel_nonzero_at_two
+    (coreCutoff : ℕ → ℕ) (K M : ℕ) :
+    c2OddTailContinuedBalancingSeedBulkModel coreCutoff K M (2 : ℂ) ≠ 0 := by
+  have hPos : 0 < ((2 : ℂ).re) := by norm_num
+  rw [c2OddTailContinuedBalancingSeedBulkModel_fundamentalIdentity
+    coreCutoff K M (2 : ℂ) hPos]
+  exact mul_ne_zero
+    (c0_ne_zero_of_re_pos hPos)
+    (riemannZeta_ne_zero_of_one_lt_re (by norm_num))
+
+theorem c2OddTailContinuedBalancingSeedBulkModel_not_eventually_zero
+    (coreCutoff : ℕ → ℕ) (K M : ℕ)
+    {ρ : ℂ} (hρ : IsCriticalZero riemannZeta ρ) :
+    ¬ ∀ᶠ z in 𝓝 ρ,
+      c2OddTailContinuedBalancingSeedBulkModel coreCutoff K M z = 0 := by
+  intro hZero
+  have hEqZero :
+      Set.EqOn
+        (c2OddTailContinuedBalancingSeedBulkModel coreCutoff K M)
+        0 puncturedOpenRightHalfPlane :=
+    (c2OddTailContinuedBalancingSeedBulkModel_analyticOnNhd_punctured
+      coreCutoff K M).eqOn_zero_of_preconnected_of_eventuallyEq_zero
+        puncturedOpenRightHalfPlane_isPreconnected
+        hρ.mem_puncturedOpenRightHalfPlane
+        hZero
+  have hTwoMem : (2 : ℂ) ∈ puncturedOpenRightHalfPlane := by
+    constructor
+    · norm_num
+    · norm_num
+  exact c2OddTailContinuedBalancingSeedBulkModel_nonzero_at_two
+    coreCutoff K M (hEqZero hTwoMem)
+
+theorem c2OddTailContinuedBalancingSeedBulkModel_eventually_ne_zero
+    (coreCutoff : ℕ → ℕ) (K M : ℕ)
+    {ρ : ℂ} (hρ : IsCriticalZero riemannZeta ρ) :
+    ∀ᶠ z in 𝓝[≠] ρ,
+      c2OddTailContinuedBalancingSeedBulkModel coreCutoff K M z ≠ 0 := by
+  let hAnalytic :=
+    c2OddTailContinuedBalancingSeedBulkModel_analyticOnNhd_punctured
+      coreCutoff K M ρ hρ.mem_puncturedOpenRightHalfPlane
+  exact hAnalytic.eventually_eq_zero_or_eventually_ne_zero.resolve_left
+    (c2OddTailContinuedBalancingSeedBulkModel_not_eventually_zero
+      coreCutoff K M hρ)
+
+noncomputable def C2OddTailContinuedBalancingSeedBulkModelNearAxisData.ofContinuedModel
+    (coreCutoff : ℕ → ℕ) (K M : ℕ) :
+    C2OddTailContinuedBalancingSeedBulkModelNearAxisData coreCutoff K M where
+  near_axis := NearAxisCertificate.of_eventually_ne_zero
+    (fun _ hρ =>
+      c2OddTailContinuedBalancingSeedBulkModel_eventually_ne_zero
+        coreCutoff K M hρ)
 
 theorem c2OddTailContinuedBalancingSeedBulkModel_eq_genuineFInfinite_on_punctured
     {coreCutoff : ℕ → ℕ} {K M : ℕ}

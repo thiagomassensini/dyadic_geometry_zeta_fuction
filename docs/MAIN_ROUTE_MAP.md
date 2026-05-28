@@ -17,10 +17,10 @@ namespace `C2.PeerReview`.
 
 The current recommended route is:
 
-1. Continuation data for the genuine C2 operator:
-   `C2.GenuineFInfiniteContinuationData`.
-2. Near-critical-zero data obtained from continuation:
-   `C2.GenuineFInfiniteNearAxisData.of_continuation`.
+1. Canonical near-critical-zero data for the continued C2 model:
+   `C2.C2OddTailContinuedBalancingSeedBulkModelNearAxisData.ofContinuedModel`.
+2. The empty edge certificate:
+   `C2.C2OddTailContinuedBalancingSeedBulkModelEdgeData.empty`.
 3. Concrete middle-region data for the continued bulk model.
 4. The canonical local middle-region witness:
    `C2.C2CanonicalClosedScaledMiddleLocalData`.
@@ -47,8 +47,7 @@ No nontrivial edge-region construction is needed for the main route.
 
 ```mermaid
 graph TD
-  A[GenuineC2ContinuationData] --> B[GenuineNearCriticalZeroData]
-  B --> C[ExpandedScalarMiddleRegionCertificate]
+  A[ContinuedModelNearCriticalZeroData] --> C[ExpandedScalarMiddleRegionCertificate]
   C --> D[CanonicalClosedScaledMiddleLocalData]
   D --> E[RiemannHypothesisTerminalCertificate]
   E --> F[OffCriticalNonvanishing]
@@ -60,9 +59,9 @@ graph TD
 | Purpose | Review-facing name | Internal declaration |
 | --- | --- | --- |
 | Stable facade import | `LeanC2.PeerReview` | imports `LeanC2.Analytic.GenuineBulkConcrete` |
-| Continuation data | `GenuineC2ContinuationData` | `GenuineFInfiniteContinuationData` |
+| Optional continuation data | `GenuineC2ContinuationData` | `GenuineFInfiniteContinuationData` |
 | Genuine operator | `GenuineC2Operator` | `genuineFInfinite` |
-| Near-critical-zero certificate | `GenuineNearCriticalZeroData` | `GenuineFInfiniteNearAxisData` |
+| Canonical continued-model near-critical-zero certificate | `ContinuedBulkNearCriticalZeroData_canonical` | `C2OddTailContinuedBalancingSeedBulkModelNearAxisData.ofContinuedModel` |
 | Middle-region scalar package | `ExpandedScalarMiddleRegionCertificate` | `C2ExpandedScalarMiddleRegionData` |
 | Canonical middle local witness | `CanonicalClosedScaledMiddleLocalData` | `C2CanonicalClosedScaledMiddleLocalData` |
 | Terminal package | `RiemannHypothesisTerminalCertificate` | `RiemannHypothesisTerminalData` |
@@ -75,9 +74,12 @@ already been packaged.
 
 | Situation | Internal declaration |
 | --- | --- |
+| Pointwise canonical local witness route, no genuine continuation needed | `mathlibRiemannHypothesis_of_continuedModelMiddleLocal` |
+| Continued-model canonical pointwise bounds, no genuine continuation needed | `mathlibRiemannHypothesis_of_continuedModelCanonicalClosedScaledMiddlePointwiseBounds` |
+| Continued-model residual dominance bounds, no genuine continuation needed | `mathlibRiemannHypothesis_of_continuedModelCanonicalClosedScaledMiddleResidualPointwiseBounds` |
 | Direct separated main-bounds route | `mathlibRiemannHypothesis_of_continuationAndExpandedScalarMiddleSeparatedMainBounds` |
 | Canonical separated-bounds route | `mathlibRiemannHypothesis_of_continuationAndCanonicalClosedScaledMiddleSeparatedBounds` |
-| Pointwise canonical local witness route | `mathlibRiemannHypothesis_of_continuationAndMiddleLocal` |
+| Pointwise canonical local witness route via genuine continuation | `mathlibRiemannHypothesis_of_continuationAndMiddleLocal` |
 | Single packaged terminal certificate | `mathlibRiemannHypothesis_of_terminalData` |
 | Public facade endpoint | `C2.PeerReview.RiemannHypothesis_of_terminalCertificate` |
 
@@ -92,8 +94,8 @@ interfaces.
 | Final RH endpoint | `LeanC2/Foundations/Basic.lean` | `mathlibRiemannHypothesis_of_offCriticalStripNonvanishing` |
 | Transfer to zeta | `LeanC2/Route/Transfer.lean` | `FundamentalIdentityOnRightHalfPlane`, `mathlibRiemannHypothesis_of_F_nonvanishing` |
 | Abstract regional cover | `LeanC2/Roadmap.lean` | `NearAxisRouteData`, `RegionalVerticalBulkBoundsData`, `EdgeRouteData`, `OffCriticalCoverData` |
-| Genuine continuation | `LeanC2/Analytic/GenuineContinuation.lean` | `GenuineFInfiniteContinuationData` and its identity fields |
-| Near-critical-zero route | `LeanC2/Analytic/GenuineG11.lean` | `eventually_ne_zero_of_continuation`, `GenuineFInfiniteNearAxisData.of_continuation` |
+| Genuine continuation | `LeanC2/Analytic/GenuineContinuation.lean` | optional `GenuineFInfiniteContinuationData` and its identity fields |
+| Continued-model near-critical-zero route | `LeanC2/Analytic/GenuineBulkConcrete/Base.lean` | `c2OddTailContinuedBalancingSeedBulkModel_eventually_ne_zero`, `C2OddTailContinuedBalancingSeedBulkModelNearAxisData.ofContinuedModel` |
 | Near-axis certificates | `LeanC2/Route/NearAxis.lean`, `LeanC2/Route/NearAxisTaylor.lean` | `NearAxisCertificate` constructors |
 | Near/middle/edge glue | `LeanC2/Analytic/GenuineCover.lean` | `GenuineFInfiniteNearBulkEdgeData.toOffCriticalCoverData` |
 | Abstract bulk route | `LeanC2/Analytic/GenuineBulk.lean` | regional bulk wrappers |
@@ -185,14 +187,28 @@ files.
 
 ## Main route versus optional branches
 
-The main route is:
+The current paper-facing route is:
 
 ```text
-continuation
-  -> near-critical-zero data from continuation
+continued C2 model
+  -> canonical near-critical-zero data
   -> canonical middle local witness
   -> terminal certificate
   -> transfer to mathlib RiemannHypothesis
+```
+
+The facade also exposes sharper entry points where the middle witness is not
+provided as a single object: the pointwise canonical closed/scaled route and
+the residual-dominance route over
+`c2ContinuedModelTerminalMiddleRegion`.
+
+The older continuation-driven route is still available as an audit variant:
+
+```text
+genuine continuation
+  -> near-critical-zero data from continuation
+  -> canonical middle local witness
+  -> terminal certificate
 ```
 
 The following families exist and are useful for inspection, but they are not

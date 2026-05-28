@@ -459,6 +459,17 @@ theorem genuineFInfinite_identity_on_oneLtHalfPlane :
 abbrev GenuineFInfiniteContinuationData :=
   ContinuationFromOneLtData genuineFInfinite riemannZeta
 
+/--
+Concrete continuation witness for `genuineFInfinite`.
+
+Because `genuineFInfinite` is defined by the analytic spelling `c₀ · ζ` on all
+of `ℂ`, the C2 identity `genuineFInfinite s = c₀ s · ζ(s)` holds definitionally
+on every domain.  In particular the continuation hypothesis is trivial: the
+identity automatically transports from `oneLtHalfPlane` to `openRightHalfPlane`.
+-/
+def genuineFInfiniteContinuationData : GenuineFInfiniteContinuationData where
+  continue_identity := fun _ _ _ => rfl
+
 theorem GenuineFInfiniteContinuationData.fundamentalIdentity
     (data : GenuineFInfiniteContinuationData) :
     FundamentalIdentityOnRightHalfPlane genuineFInfinite riemannZeta :=
